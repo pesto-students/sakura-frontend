@@ -7,9 +7,9 @@ import "./Cart.scss"
 /**
  * This component tells how many items are there in user cart
  */
-export default class Cart extends React.Component<ICartProps>{
+export default class Cart extends React.Component<CartProps>{
 
-    constructor(props: ICartProps) {
+    constructor(props: CartProps) {
         super(props);
         this.state = {};
     }
@@ -22,16 +22,16 @@ export default class Cart extends React.Component<ICartProps>{
         cssProperties['--counter-size'] = cartSize/20 + "rem"
         
         return (
-            <div className="primary_cart" style={cssProperties} onClick={e=>this.props.cartCbk({})}>
+            <div className="primary_cart" data-testid="cart" style={cssProperties} onClick={e=>this.props.cartCbk()}>
                 <Cart3 className="primary_cart_icon" size={cartSize} />
-                <div className="primary_cart_counter" >{cartItemLength}</div>
+                <div className="primary_cart_counter" data-testid="cart-counter" >{cartItemLength}</div>
             </div>
         )
     }
 
 }
 
-export type ICartProps = {
+export type CartProps = {
     /**
      * Cart size defines the size of component on different screen.
      */
@@ -41,10 +41,8 @@ export type ICartProps = {
       */
     cartItemLength: number;
       /**
-     * Emits observables on cart click. This callback can be listened, using subscribe,
-     * to get user input and call api from it. Further operators like throttle, map etc can be applied
-     * on the emitted observable
+     * Cart callback to be called on click
      */
-    cartCbk: (query: Object) => void;
+    cartCbk: () => void;
     
 }
