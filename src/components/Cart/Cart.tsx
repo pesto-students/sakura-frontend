@@ -17,13 +17,12 @@ export default class Cart extends React.Component<CartProps>{
 
     render () {
 
-        const {cartSize=30, cartItemLength=0} = this.props;
-        let cssProperties = { }
-        cssProperties['--counter-size'] = cartSize/20 + "rem"
+        const {size=2, sizeUnit="rem", cartItemLength=0} = this.props;
+        let cssProperties: {"--size": String, "--icon-size":String} = {"--size": String(size) + sizeUnit, "--icon-size":String(size*1.3) + sizeUnit }
         
         return (
             <div className="primary_cart" data-testid="cart" style={cssProperties} onClick={e=>this.props.cartCbk()}>
-                <Cart3 className="primary_cart_icon" size={cartSize} />
+                <Cart3 className="primary_cart_icon"/>
                 <div className="primary_cart_counter" data-testid="cart-counter" >{cartItemLength}</div>
             </div>
         )
@@ -33,11 +32,15 @@ export default class Cart extends React.Component<CartProps>{
 
 export type CartProps = {
     /**
-     * Cart size defines the size of component on different screen.
+     * Size defines the size of component on different screen.
      */
-     cartSize: number;
+     size: number;
      /**
-      * Cart item length tells the number of item in user cart.
+      * Define unit of size
+      */
+     sizeUnit: String;
+     /**
+      * Cart item length tells the number of item in user favorite.
       */
     cartItemLength: number;
       /**

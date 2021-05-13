@@ -18,7 +18,7 @@ afterAll(() => server.close())
 
 test('Should  call Cart callback on click', async () => {
   
-  const { rerender, getByText } = render(<Cart cartSize={40} cartItemLength={10} cartCbk={cartCllback}/>)
+  const { rerender, getByText } = render(<Cart size={2} sizeUnit="rem" cartItemLength={10} cartCbk={cartCllback}/>)
   let st = ""
 
   function cartCllback() {
@@ -34,8 +34,8 @@ test('Should  call Cart callback on click', async () => {
 
 test('Should render cartItemLegth', async () => {
   
-  const cartProps = {cartSize: 50, cartItemLength: 20, cartCbk: function () {}}
-  render(<Cart cartSize={cartProps.cartSize} cartItemLength={cartProps.cartItemLength} cartCbk={cartProps.cartCbk}/>)
+  const cartProps = {size:2, sizeUnit:"rem", cartItemLength: 20, cartCbk: function () {}}
+  render(<Cart size={cartProps.size} sizeUnit={cartProps.sizeUnit} cartItemLength={cartProps.cartItemLength} cartCbk={cartProps.cartCbk}/>)
   const cartElement = screen.getByTestId("cart");
   const cartCounterElement = screen.getByTestId("cart-counter");
   expect(cartElement).toBeInTheDocument()
@@ -44,8 +44,8 @@ test('Should render cartItemLegth', async () => {
 })
 
 test("matches snapshots", ()=> {
-  const cartProps = {cartSize: 50, cartItemLength: 20, cartCbk: function () {}}
-  const tree = renderer.create(<Cart cartSize={cartProps.cartSize} cartItemLength={cartProps.cartItemLength} cartCbk={cartProps.cartCbk}/>).toJSON()
+  const cartProps = {size:2, sizeUnit:"rem", cartItemLength: 20, cartCbk: function () {}}
+  const tree = renderer.create(<Cart size={cartProps.size} sizeUnit={cartProps.sizeUnit}  cartItemLength={cartProps.cartItemLength} cartCbk={cartProps.cartCbk}/>).toJSON()
   expect(tree).toMatchSnapshot()
 
 })

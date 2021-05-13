@@ -5,6 +5,7 @@ import {
     Link
 } from "react-router-dom";
 import { ProductList } from "./pages/products/product";
+import Test from "./pages/Test/Test"
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from "./appStore/store"
 
@@ -15,6 +16,7 @@ export default function AppRoutes() {
             <Switch>
                 {/* Public routes */}
                 <Route path="/home" exact={true} render={() => <div>Home Page</div>}/>
+                <Route path="/test" exact={true} render={() => <div><Test/></div>}/>
                 <Route path="/" exact={true} render={() => <div> <ProductList/></div>}/>
                 
                 {/* Auth Routes */}

@@ -16,13 +16,12 @@ export default class Favorite extends React.Component<FavoriteProps>{
 
     render () {
 
-        const {favoriteSize=30, favoriteItemLength=0} = this.props;
-        let cssProperties = { }
-        cssProperties['--counter-size'] = favoriteSize/20 + "rem"
+        const {size=2, sizeUnit="rem", favoriteItemLength=0} = this.props;
+        let cssProperties: {"--size": String, "--icon-size":String} = {"--size": String(size) + sizeUnit, "--icon-size":String(size*1.3) + sizeUnit }
         
         return (
             <div className="primary_favorite" data-testid="favorite" style={cssProperties} onClick={e=>this.props.favoriteCbk()}>
-                <Heart className="primary_favorite_icon" size={favoriteSize} />
+                <Heart className="primary_favorite_icon"/>
                 <div className="primary_favorite_counter" >{favoriteItemLength}</div>
             </div>
         )
@@ -32,9 +31,13 @@ export default class Favorite extends React.Component<FavoriteProps>{
 
 export type FavoriteProps = {
     /**
-     * favorite size defines the size of component on different screen.
+     * Size defines the size of component on different screen.
      */
-     favoriteSize: number;
+     size: number;
+     /**
+      * Define unit of size
+      */
+     sizeUnit: String;
      /**
       * favorite item length tells the number of item in user favorite.
       */

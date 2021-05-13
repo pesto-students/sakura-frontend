@@ -7,16 +7,17 @@ exports[`matches snapshots 1`] = `
   onClick={[Function]}
   style={
     Object {
-      "--counter-size": "2.5rem",
+      "--icon-size": "2.6rem",
+      "--size": "2rem",
     }
   }
 >
   <svg
     className="primary_favorite_icon"
     fill="currentColor"
-    height={50}
+    height="1em"
     viewBox="0 0 16 16"
-    width={50}
+    width="1em"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

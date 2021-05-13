@@ -1,7 +1,8 @@
 @import "../../sassStyles/globals";
 
 .primary_favorite{
-    --counter-size: 2rem;
+    --size: 2rem;
+    --icon-size: 3rem;
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -9,6 +10,8 @@
     &_icon{
         display: inline-block;
         transition: all .2s;
+        width: var(--icon-size);
+        height: var(--icon-size);
         // color: rgba(var(--color-black--rgb), 1);
         &:hover{
             color:rgba($primary-color, 1);
@@ -21,9 +24,9 @@
         top: -30%;
         right: -30%;
         font-size: .8rem;
-        width: var(--counter-size);
-        height: var(--counter-size);
-        line-height: var(--counter-size);
+        width: var(--size);
+        height: var(--size);
+        line-height: var(--size);
         text-align: center;
         color: rgba($color-white, 1);
         background-color:rgba($primary-color, 1);
