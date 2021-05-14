@@ -1,0 +1,26 @@
+@import "../../sassStyles/globals";
+
+.primary_addToCart{
+    --size: 2rem;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 1rem;
+    background-color: rgba($primary-color, $alpha: 1.0);
+    border-radius: 50%;
+    &_icon{
+        display: inline-block;
+        transition: all .2s;
+        width: var(--size);
+        height: var(--size);
+        color: rgba($color-white, $alpha: 1.0);
+        
+        // color: rgba(var(--color-black--rgb), 1);
+    }
+    &:hover {
+        background-color: rgba($color-white, $alpha: 1.0);
+        & > svg {
+            color: rgba($primary-color, $alpha: 1.0);
+        }
+    }
+}
