@@ -1,11 +1,10 @@
-import React from 'react'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import SearchBar, { SearchResults } from './SearchBar'
+import SearchBar, { SearchResults } from '../SearchBar'
 
 const server = setupServer(
   rest.get('/search', (req, res, ctx) => {

@@ -1,24 +1,21 @@
-import React from 'react'
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import renderer from "react-test-renderer"
 import Cart from "../Cart"
 
-const server = setupServer(
-  rest.get('/search', (req, res, ctx) => {
-    return res(ctx.json({}))
-  })
-)
+// const server = setupServer(
+//   rest.get('/search', (req, res, ctx) => {
+//     return res(ctx.json({}))
+//   })
+// )
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+// beforeAll(() => server.listen())
+// afterEach(() => server.resetHandlers())
+// afterAll(() => server.close())
 
 test('Should  call Cart callback on click', async () => {
   
-  const { rerender, getByText } = render(<Cart size={2} sizeUnit="rem" cartItemLength={10} cartCbk={cartCllback}/>)
+  render(<Cart size={2} sizeUnit="rem" cartItemLength={10} cartCbk={cartCllback}/>)
   let st = ""
 
   function cartCllback() {

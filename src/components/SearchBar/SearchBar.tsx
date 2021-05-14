@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { Search } from "react-bootstrap-icons";
 import classNames from "classnames";
 import "./SearchBar.scss";
 import React from "react";
-
-
 
 
 /**
@@ -50,7 +49,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
                 onBlur={() => this.changeResultsContainerDisplay(false)}
             >
                 <div className="search-button">
-                    <FontAwesomeIcon id="search-icon" icon={faSearch} />
+                    <Search id="search-icon"/>
                 </div>
                 <div style={{ width: `${searchBarWidth}${widthUnit}` }} className="search-text-container">
                     <input data-testid="search-bar-input" onChange={e => this.props.searchCbk(e.target.value)} className="search-text" />

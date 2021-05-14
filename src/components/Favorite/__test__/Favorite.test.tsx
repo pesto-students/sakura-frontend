@@ -1,25 +1,23 @@
-import React from 'react'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import renderer from "react-test-renderer"
-import Cart from "../Favorite"
 import Favorite from '../Favorite'
 
-const server = setupServer(
-  rest.get('/search', (req, res, ctx) => {
-    return res(ctx.json({}))
-  })
-)
+// const server = setupServer(
+//   rest.get('/search', (req, res, ctx) => {
+//     return res(ctx.json({}))
+//   })
+// )
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+// beforeAll(() => server.listen())
+// afterEach(() => server.resetHandlers())
+// afterAll(() => server.close())
 
 test('Should  call Cart callback on click', async () => {
   
-  const { rerender, getByText } = render(<Favorite size={2} sizeUnit="rem" favoriteItemLength={10} favoriteCbk={favoriteCallCbk}/>)
+  render(<Favorite size={2} sizeUnit="rem" favoriteItemLength={10} favoriteCbk={favoriteCallCbk}/>)
   let st = ""
 
   function favoriteCallCbk() {
@@ -47,5 +45,4 @@ test("matches snapshots", ()=> {
   const favoriteProps = {favoriteSize: 50, favoriteItemLength: 20, favoriteCbk: function () {}}
   const tree = renderer.create(<Favorite size={2} sizeUnit="rem" favoriteItemLength={favoriteProps.favoriteItemLength} favoriteCbk={favoriteProps.favoriteCbk}/>).toJSON()
   expect(tree).toMatchSnapshot()
-
 })
