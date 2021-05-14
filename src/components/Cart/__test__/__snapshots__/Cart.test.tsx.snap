@@ -5,17 +5,17 @@ exports[`matches snapshots 1`] = `
   className="primary_cart"
   data-testid="cart"
   onClick={[Function]}
-  style={
-    Object {
-      "--icon-size": "2.6rem",
-      "--size": "2rem",
-    }
-  }
 >
   <svg
     className="primary_cart_icon"
     fill="currentColor"
     height="1em"
+    style={
+      Object {
+        "height": "2.6rem",
+        "width": "2.6rem",
+      }
+    }
     viewBox="0 0 16 16"
     width="1em"
     xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +27,13 @@ exports[`matches snapshots 1`] = `
   <div
     className="primary_cart_counter"
     data-testid="cart-counter"
+    style={
+      Object {
+        "height": "2rem",
+        "lineHeight": "2rem",
+        "width": "2rem",
+      }
+    }
   >
     20
   </div>

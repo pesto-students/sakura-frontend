@@ -17,12 +17,13 @@ export default class Favorite extends React.Component<FavoriteProps>{
     render () {
 
         const {size=2, sizeUnit="rem", favoriteItemLength=0} = this.props;
-        let cssProperties: {"--size": String, "--icon-size":String} = {"--size": String(size) + sizeUnit, "--icon-size":String(size*1.3) + sizeUnit }
+        let iconSize: string = String(size*1.3) + sizeUnit
+        let counterSize: string = String(size) + sizeUnit
         
         return (
-            <div className="primary_favorite" data-testid="favorite" style={cssProperties} onClick={e=>this.props.favoriteCbk()}>
-                <Heart className="primary_favorite_icon"/>
-                <div className="primary_favorite_counter" >{favoriteItemLength}</div>
+            <div className="primary_favorite" data-testid="favorite" onClick={e=>this.props.favoriteCbk()}>
+                <Heart className="primary_favorite_icon" style={{width: iconSize, height:iconSize}}/>
+                <div className="primary_favorite_counter" style={{width:counterSize, height:counterSize, lineHeight: counterSize}}>{favoriteItemLength}</div>
             </div>
         )
     }

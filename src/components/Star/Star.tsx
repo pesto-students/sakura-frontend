@@ -11,10 +11,10 @@ export default class Star extends React.Component<StarProps> {
 
     render(){
         const {size=1, sizeUnit="rem", isFilled=true} =  this.props
-        let cssProperties: {"--star-size": String} = {"--star-size": String(size) + sizeUnit}
+        let ComponentSize: string = String(size*1.3) + sizeUnit
         return (
             <div className="primary_star" data-testid="star">
-                {isFilled?<RatingFill className="primary_star_filled" data-testid="filled-star" /> : <Rating  className="primary_star_empty" data-testid="empty-star" id="empty-star"/>}
+                {isFilled?<RatingFill className="primary_star_filled" data-testid="filled-star" style={{width: ComponentSize, height:ComponentSize}}/> : <Rating  className="primary_star_empty" data-testid="empty-star" id="empty-star" style={{width: ComponentSize, height:ComponentSize}}/>}
             </div>
         )
     }

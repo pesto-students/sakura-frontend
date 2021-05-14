@@ -18,12 +18,13 @@ export default class Cart extends React.Component<CartProps>{
     render () {
 
         const {size=2, sizeUnit="rem", cartItemLength=0} = this.props;
-        let cssProperties: {"--size": String, "--icon-size":String} = {"--size": String(size) + sizeUnit, "--icon-size":String(size*1.3) + sizeUnit }
+        let iconSize: string = String(size*1.3) + sizeUnit
+        let counterSize: string = String(size) + sizeUnit
         
         return (
-            <div className="primary_cart" data-testid="cart" style={cssProperties} onClick={e=>this.props.cartCbk()}>
-                <Cart3 className="primary_cart_icon"/>
-                <div className="primary_cart_counter" data-testid="cart-counter" >{cartItemLength}</div>
+            <div className="primary_cart" data-testid="cart" onClick={e=>this.props.cartCbk()}>
+                <Cart3 className="primary_cart_icon" style={{width: iconSize, height:iconSize}}/>
+                <div className="primary_cart_counter" data-testid="cart-counter" style={{width:counterSize, height:counterSize, lineHeight: counterSize}}>{cartItemLength}</div>
             </div>
         )
     }

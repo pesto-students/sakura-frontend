@@ -1,13 +1,17 @@
 import React from 'react'
-import Card from "../../components/Card/Card"
+import Cart from "../../components/Cart/Cart"
+import Favorite from "../../components/Favorite/Favorite"
 import Star from "../../components/Star/Star"
 import AddToCart from "../../components/AddToCart/AddToCart"
 
 const Test = () => {
+
+    const dummy  = () => {}
     return (
         <div>
-            <Card/>
-            <AddToCart/>
+            {/* <Cart size={1} sizeUnit="rem" addToCartCbk={dummy}/> */}
+            <Favorite size={1} sizeUnit="rem" favoriteItemLength={0} favoriteCbk = {dummy}/>
+            <Star isFilled={true} size={5} sizeUnit="rem"/>
         </div>
     )
 }

@@ -12,12 +12,13 @@ export default class AddToCart extends React.Component<addToCartProps> {
 
     render () {
 
-        const {size=2, sizeUnit="rem", addToCartCbk=()=>{}} = this.props;
-        let cssProperties: {"--size": String} = {"--size": String(size) + sizeUnit }
-        
+        const {size=1, sizeUnit="rem", addToCartCbk=()=>{}} = this.props;
+        let width: string = String(size) + sizeUnit
+        let height: string = String(size) + sizeUnit
+
         return (
-            <div className="primary_addToCart" data-testid="addToCart" style={cssProperties} onClick={e=>this.props.addToCartCbk()}>
-                <Cart3 className="primary_addToCart_icon"/>
+            <div className="primary_addToCart" data-testid="addToCart" style={{}} onClick={e=>this.props.addToCartCbk()}>
+                <Cart3 className="primary_addToCart_icon" style={{width: width, height:height}}/>
             </div>
         )
     }
