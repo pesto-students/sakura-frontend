@@ -1,5 +1,3 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Search } from "react-bootstrap-icons";
 import classNames from "classnames";
 import "./SearchBar.scss";
