@@ -1,3 +1,3 @@
 ```js
-<AddToCart size={2} sizeUnit="rem" addToCartCbk = {(q) => { console.log(q) }}></AddToCart>
+<AddToCart size={2} sizeUnit="rem" addToCartCbk = {() => { console.log("addToCart clicked") }}></AddToCart>
 ```

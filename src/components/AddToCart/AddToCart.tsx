@@ -35,7 +35,7 @@ export type addToCartProps = {
       */
      sizeUnit: String;
       /**
-     * 
+     * Add clicked item to cart 
      */
     addToCartCbk: () => void;
     
