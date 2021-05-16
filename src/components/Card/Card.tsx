@@ -1,15 +1,12 @@
 import React from 'react'
 import "./Card.scss"
 import productImage from "../../assests/images/productImages/photo-1523275335684-37898b6baf30.jpg"
-import defaultimg from "../../assests/images/default/defaultimg.jpg"
+import defaultImg from "../../assests/images/default/defaultimg.jpg"
 import { render } from '@testing-library/react';
 import ProductDescription from "../ProductDescription"
 import AddTocart from "../AddToCart"
 import AddToFavorite from "../AddToFavorite"
 import {Img} from 'react-image'
-
-
-
 
 
 export default class Card extends React.Component {
@@ -22,14 +19,14 @@ export default class Card extends React.Component {
     render () {
         let defaultimg = "../../assests/images/default/defaultimg.jpg"
         return (
-        
+            
             <div className="primary_card">
                 <div className="primary_card_productHeader">
                     {/* add product image */}
-                        <img
-                        src={"https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBQ"}
-                        alt={defaultimg}
+                        <Img
+                        src={productImage}
                         className="primary_card_productHeader_img"
+                        unloader={<Img src={defaultImg} className="primary_card_productHeader_img"/>}
                         />
                     {/* add discount percentage at top left */}
                     <div className="primary_card_productHeader_discount">

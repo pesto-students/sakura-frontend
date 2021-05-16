@@ -4,7 +4,7 @@ import Favorite from "../../components/Favorite/Favorite"
 import Star from "../../components/Star/Star"
 import AddToCart from "../../components/AddToCart/AddToCart"
 import ProductDescription from '../../components/ProductDescription'
-import Card from "../../components/Card"
+import Carousel from "../../components/Carousel"
 
 
 const Test = () => {
@@ -16,7 +16,7 @@ const Test = () => {
             <Favorite size={1} sizeUnit="rem" favoriteItemLength={0} favoriteCbk = {dummy}/>
             <Star isFilled={true} size={5} sizeUnit="rem"/>
             <ProductDescription productColor="yellow"  productSize="small" productName="pant" brandName="BATA" rating={3}/> */}
-            <Card/>
+            <Carousel/>
         </div>
     )
 }
