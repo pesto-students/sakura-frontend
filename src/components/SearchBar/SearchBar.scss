@@ -1,11 +1,10 @@
 @import "../../sassStyles/globals";
 
-$search-bar-height: 1.5em;
+$search-bar-height: 2.5em;
 $result-entries-height: 1.7em;
 
 .search-bar {
     position: relative;
-    // height: 8em;
 }
 
 .search-button {
@@ -40,10 +39,10 @@ $result-entries-height: 1.7em;
 .search-text {
     all: unset;
     position: absolute;
-    top: 10%;
-    bottom: 10%;
+    // top: 5%;
+    // bottom: 5%;
     height: $search-bar-height;
-    width: 100%;
+    width: 70%;
     left: $search-bar-height + 0.5em;
     font-family: 'Roboto', sans-serif;
 }

@@ -1,13 +1,15 @@
-import React from 'react';
 import AppRoutes from "./routes";
-import './App.scss';
+import "./App.scss";
+import AppLayout from "./pages/appLayout";
 
 function App() {
   return (
     <div>
-        <div>
-          <AppRoutes/>
-        </div>
+      <div>
+        <AppLayout>
+          <AppRoutes />
+        </AppLayout>
+      </div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ import Favorite from '../Favorite'
 
 test('Should  call Cart callback on click', async () => {
   
-  render(<Favorite size={2} sizeUnit="rem" favoriteItemLength={10} favoriteCbk={favoriteCallCbk}/>)
+  render(<Favorite size={2} sizeUnit="rem" favoriteItemCount={10} favoriteCbk={favoriteCallCbk}/>)
   let st = ""
 
   function favoriteCallCbk() {
@@ -34,7 +34,7 @@ test('Should  call Cart callback on click', async () => {
 test('Should render cartItemLegth', async () => {
   
   const favoriteProps = {favoriteSize: 50, favoriteItemLength: 20, favoriteCbk: function () {}}
-  render(<Favorite size={2} sizeUnit="rem" favoriteItemLength={favoriteProps.favoriteItemLength} favoriteCbk={favoriteProps.favoriteCbk}/>)
+  render(<Favorite size={2} sizeUnit="rem" favoriteItemCount={favoriteProps.favoriteItemLength} favoriteCbk={favoriteProps.favoriteCbk}/>)
   const favElement = screen.getByTestId("favorite");
   expect(favElement).toBeInTheDocument()
   expect(favElement).toHaveTextContent("20")
@@ -43,6 +43,6 @@ test('Should render cartItemLegth', async () => {
 
 test("matches snapshots", ()=> {
   const favoriteProps = {favoriteSize: 50, favoriteItemLength: 20, favoriteCbk: function () {}}
-  const tree = renderer.create(<Favorite size={2} sizeUnit="rem" favoriteItemLength={favoriteProps.favoriteItemLength} favoriteCbk={favoriteProps.favoriteCbk}/>).toJSON()
+  const tree = renderer.create(<Favorite size={2} sizeUnit="rem" favoriteItemCount={favoriteProps.favoriteItemLength} favoriteCbk={favoriteProps.favoriteCbk}/>).toJSON()
   expect(tree).toMatchSnapshot()
 })
