@@ -4,10 +4,10 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { ProductList } from "./pages/products/product";
-import Test from "./pages/Test/Test"
+import ProductList from "./pages/products";
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from "./appStore/store"
+import Home from "./pages/home";
 
 // routes prepended with "/app" shall be auth protected routes
 export default function AppRoutes() {
@@ -15,9 +15,8 @@ export default function AppRoutes() {
         <ConnectedRouter history={history}>
             <Switch>
                 {/* Public routes */}
-                <Route path="/home" exact={true} render={() => <div>Home Page</div>}/>
-                <Route path="/test" exact={true} render={() => <div><Test/></div>}/>
-                <Route path="/" exact={true} render={() => <div> <ProductList/></div>}/>
+                <Route path="/" exact={true} render={() => <Home/>}/>
+                <Route path="/products" exact={true} render={() => <div> <ProductList/></div>}/>
                 
                 {/* Auth Routes */}
                 <Route path="/auth/login" exact={true} render={() => <div>Login</div>}/>

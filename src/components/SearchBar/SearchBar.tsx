@@ -40,7 +40,7 @@ export default class SearchBar extends React.Component<SearchBarProps, SearchBar
 
 
     render() {
-        const { searchBarWidth = 40, widthUnit = "%", searchResults = [] } = this.props;
+        const { searchBarWidth = 100, widthUnit = "%", searchResults = [] } = this.props;
         return (
             <div className="search-bar"
                 onFocus={() => this.changeResultsContainerDisplay(true)}

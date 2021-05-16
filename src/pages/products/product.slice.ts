@@ -6,12 +6,12 @@ import { push } from 'connected-react-router'
 import { of } from 'rxjs';
 
 
-interface productState {
-  items: itemObject[];
+type ProductState = {
+  items: ItemObject[];
   selectedProductCategories: string[];
 }
 
-interface itemObject {
+type ItemObject = {
   id: number;
   title: string;
 }
@@ -21,7 +21,7 @@ const productSlice = createSlice({
   initialState: {
     items: [],
     selectedProductCategories: []
-  } as productState,
+  } as ProductState,
   reducers: {
     requestProductsByFilter: (state, action) => {
       state.selectedProductCategories = action.payload.productCategories;

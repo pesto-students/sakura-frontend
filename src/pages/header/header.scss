@@ -1,0 +1,18 @@
+@import "~bootstrap/scss/bootstrap";
+
+.header-container {
+  padding-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+
+.header-content {
+  margin: 0 auto;
+}
+
+@include media-breakpoint-up(md) {
+  #header-favorite {
+    padding-left: 3rem;
+  }
+}
