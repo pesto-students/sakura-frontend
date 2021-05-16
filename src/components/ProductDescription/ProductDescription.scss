@@ -2,14 +2,16 @@
 
 .primary_productDescription{
     background-color:white;
-    max-width: 15rem;
+    max-width: 30rem;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-areas:
-    'rating rating'
-    'brandName brandName'
-    'productName productName'
-    "productColor productColor"
-    "ProductPrice ProductPrice";
+    'rating '
+    'brandName '
+    'productName '
+    "productColor "
+    "ProductPrice ";
     padding: 0.5rem;
     
     &_rating{

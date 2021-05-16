@@ -1,3 +1,3 @@
-import { ProductList } from "./Product";
+import { ProductList } from "./product";
 
 export default ProductList;

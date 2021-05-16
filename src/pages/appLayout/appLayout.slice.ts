@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const appLayoutSlice = createSlice({
-    name: 'products',
+    name: 'appLayout',
     initialState: {
         productsInCart: [],
         productsInFavorite: [],
