@@ -9,7 +9,7 @@ import {Img} from 'react-image'
 import defaultImg from "../../assests/images/default/defaultimg.jpg"
 
 export default class Carousel extends Component<CarouselProps, CarouselStates> {
-    constructor(props: any) {
+    constructor(props: CarouselProps) {
         super(props);
         this.state = {
             index: 0
@@ -22,8 +22,7 @@ export default class Carousel extends Component<CarouselProps, CarouselStates> {
     };
 
     render() {
-        const { width = "50rem", height = "20rem", interval=1000, handleClick=(input)=>{} } = this.props;
-        const items = [summerSale, menSale, saleDay, womenSaleCloth]
+        const { width = "50rem", height = "20rem", interval=1000, handleClick=(input)=>{}, items=[summerSale, menSale, saleDay, womenSaleCloth] } = this.props;
         return (
                 <div className="primary_carousel" style={{width:width, height:height}} >
                     <BootstrapCarousel 
@@ -47,8 +46,7 @@ export default class Carousel extends Component<CarouselProps, CarouselStates> {
                             </BootstrapCarousel.Item>
                             )
                         })}
-                        
-                        
+                                                
                     </BootstrapCarousel>
                 </div>
                 
@@ -79,9 +77,15 @@ export type CarouselProps = {
      * specify slide interval in millseconds
      */
      interval: number
+
+     /**
+      * Pass list of images that need to be displayed in Carousel
+      */
+    items: []
     /**
      * handleClick function defines what should happen on clicking the component
      * gets current silde index
      */
     handleClick: (input: number) => void;
+
 }
