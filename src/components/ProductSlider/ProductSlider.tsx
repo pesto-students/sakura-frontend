@@ -5,7 +5,6 @@ import {
 } from "react-bootstrap-icons";
 import "./ProductSlider.scss";
 
-
 export function ProductSlider<T>(props: ProductSliderProps<T>) {
   const {
     sliderColor = "#6B206A",
@@ -19,9 +18,7 @@ export function ProductSlider<T>(props: ProductSliderProps<T>) {
       <div className="slider-button-container">
         <div
           className="left-slider"
-          onClick={(e) => {
-            contentContainerRef.current?.scrollBy({ left: -scrollByValue });
-          }}
+          onClick={(e) => {scrollSlider(contentContainerRef, -scrollByValue)}}
         >
           <span style={{ color: sliderColor }}>
             <CaretLeftSquareFill />
@@ -29,22 +26,27 @@ export function ProductSlider<T>(props: ProductSliderProps<T>) {
         </div>
         <div
           className="right-slider"
-          onClick={(e) => {
-            contentContainerRef.current?.scrollBy({ left: scrollByValue });
-          }}
+          onClick={(e) => {scrollSlider(contentContainerRef, scrollByValue)}}
         >
           <span style={{ color: sliderColor }}>
             <CaretRightSquareFill />
           </span>
         </div>
       </div>
-      <div className="slider-content-container" ref={contentContainerRef}>
+      <div className="slider-content-container" ref={contentContainerRef} >
         {content?.map((el) => (
           <div className="slider-content">{el}</div>
         ))}
       </div>
     </div>
   );
+}
+
+function scrollSlider(
+  containerRef: React.RefObject<HTMLDivElement>,
+  scrollVal: number
+) {
+    containerRef.current?.scrollBy({ left: scrollVal });
 }
 
 type ProductSliderProps<T> = {
