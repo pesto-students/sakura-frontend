@@ -5,7 +5,7 @@ import "./AppLogo.scss";
 export const AppLogo: React.FC = () => {
   return (
     <span>
-      <img id="app-logo" src={logo} alt="Logo"></img>
+      <img className="app-logo" src={logo} alt="Logo"></img>
     </span>
   );
 };
