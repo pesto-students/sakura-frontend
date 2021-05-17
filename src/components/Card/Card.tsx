@@ -9,29 +9,29 @@ import AddToFavorite from "../AddToFavorite"
 import {Img} from 'react-image'
 
 
-export default class Card extends React.Component {
+export default class Card extends React.Component<CardProps> {
 
-    constructor(props: any) {
+    constructor(props: CardProps) {
         super(props);
         this.state = {};
     }
 
     render () {
-        let defaultimg = "../../assests/images/default/defaultimg.jpg"
+        const productDesc: ProductDescriptionType = this.props.productDesc;
         return (
             
             <div className="primary_card">
                 <div className="primary_card_productHeader">
                     {/* add product image */}
                         <Img
-                        src={productImage}
+                        src={productDesc.productImage}
                         className="primary_card_productHeader_img"
                         unloader={<Img src={defaultImg} className="primary_card_productHeader_img"/>}
                         />
                     {/* add discount percentage at top left */}
-                    <div className="primary_card_productHeader_discount">
-                        -15%
-                    </div>
+                    {productDesc.discountPercentage && <div className="primary_card_productHeader_discount">
+                        -{productDesc.discountPercentage}%
+                    </div>}
 
                     {/* add addToCart and addToBuy bottom right on image*/}
                     <div className="primary_card_productHeader_bottomRight">
@@ -43,10 +43,41 @@ export default class Card extends React.Component {
 
                 </div>
                 <div className="primary_card_productDescription">
-                    <ProductDescription  productColor="black"  productSize="medium"  productName="Watch" brandName="Apple" rating={5} />
+                    <ProductDescription  
+                    productColor={productDesc.productColor}  
+                    productSize={productDesc.productSize}  
+                    productName={productDesc.productName} 
+                    brandName={productDesc.brandName} 
+                    discountedPrice={productDesc.discountedPrice}
+                    originalPrice={productDesc.originalPrice}
+                    rating={productDesc.rating} />
                 </div>
             </div>
         )
     }
     
+}
+
+export type ProductDescriptionType = {
+    /**
+     * discountPercentage 
+     */
+    discountPercentage?: number,
+    rating: number,
+    brandName: string,
+    productName: string,
+    productColor?: string,
+    productSize?:string,
+    discountedPrice?: string,
+    originalPrice: string,
+    productImage: string
+}
+
+export type CardProps = {
+    
+    /**
+     * specify productDescription
+     */
+     productDesc: ProductDescriptionType
+
 }

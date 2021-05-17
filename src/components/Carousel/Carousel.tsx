@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Carousel as BootstrapCarousel, CarouselItem, CarouselItemProps} from "react-bootstrap"
 import "./Carousel.scss"
-import summerSale from "../../assests/images/banner/summerSale.jpg"
+import summerSale from "../../assests/images/banner/summerSale.png"
 import menSale from "../../assests/images/banner/menSale.jpg"
 import saleDay from "../../assests/images/banner/saleDay.jpg"
 import womenSaleCloth from "../../assests/images/banner/womenSaleCloth.jpg"
@@ -33,7 +33,7 @@ export default class Carousel extends Component<CarouselProps, CarouselStates> {
                         className="primary_carousel_bootstrapCarousel" 
                         interval={interval} 
                         onSelect={this.handleSelect}>
-                        {items.map((item, index)=>{
+                        {items.map((item: any, index: any)=>{
                             return (
                             <BootstrapCarousel.Item className="carousel-item primary_carousel_item" key={index} onClick={()=>handleClick(this.state.index)}   style={{width:width, height:height}}>
                                 <Img

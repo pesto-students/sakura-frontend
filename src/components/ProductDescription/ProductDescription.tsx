@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Border } from 'react-bootstrap-icons'
 import "./ProductDescription.scss"
 import Star from "../Star"
@@ -29,7 +29,7 @@ export default class ProductDescription extends React.Component<productDescripti
     
 
     render() {
-        const {productColor="black", productSize="small", productName="Pant", brandName="BATA", rating=3, border} = this.props;
+        const {productColor, productSize, productName="Pant", brandName="BATA", rating, border, originalPrice, discountedPrice, discountPercentage} = this.props;
         
         return (
             // <div className="card" style={{width:"14rem", border:"yellow", backgroundColor: "DodgerBlue", height:"10rem"}}>
@@ -41,13 +41,14 @@ export default class ProductDescription extends React.Component<productDescripti
                         <div className="primary_productDescription_brandName">{brandName}</div>
                         <div className="primary_productDescription_productName">{productName}</div>
                         <div className="primary_productDescription_productColor">
-                            Color: 
-                            <div className="primary_productColor" style={{backgroundColor: productColor}}> </div>
-                            <div className="primary_productDescription_productSize">Size: {productSize}</div>
+                            {productColor && <Fragment>Color: <div className="primary_productColor" style={{backgroundColor: productColor}}> </div></Fragment>}
+                            {productColor && <Fragment><div style={{paddingLeft:"1rem", display:"inline-block"}}></div></Fragment>}
+                            {productSize && <div className="primary_productDescription_productSize">Size: {productSize}</div>}
                         </div>
                         <div className="primary_productDescription_ProductPrice">
-                            <div className="primary_productDescription_ProductPrice_productOrignalPrice">10$</div>
-                            <div className="primary_productDescription_ProductPrice_productDiscountedPrice">20$</div>
+                            {discountedPrice? <div className="primary_productDescription_ProductPrice_productOrignalPrice">{originalPrice}</div> : <div className="primary_productDescription_ProductPrice_productOrignalPrice" style={{textDecoration:"none", fontWeight:"bold"}}>{originalPrice}</div>}
+                            
+                            {discountedPrice && <div className="primary_productDescription_ProductPrice_productDiscountedPrice">{discountedPrice}</div>}
                         </div>
                 </div>
             // </div>
@@ -62,11 +63,11 @@ export type productDescription = {
     /**
      * select product color
      */
-     productColor: string;
+     productColor?: string;
      /**
       * select product Size
       */
-     productSize: string;
+     productSize?: string;
     /**
      * select product name
      */
@@ -83,6 +84,18 @@ export type productDescription = {
       * specify border 
       */
       border: string
+    /**
+     * original price 
+     */
+     originalPrice: string,
+    /**
+     * discountedPrice
+     */
+     discountedPrice?: string
 
+    /**
+     * discountPercentage
+     */
+     discountPercentage?: number
 }
 
