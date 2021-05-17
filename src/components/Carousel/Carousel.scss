@@ -2,13 +2,14 @@
 @import "~bootstrap/scss/bootstrap";
 
 .primary_carousel{
+    position:relative;
     background-color: $color-black;  
     font-weight: 700;
     &_item{
         font-weight: 700;
-        width: 100%;
-        height: 40rem;
         cursor: pointer;
+        width: 100%;
+        height: 100%;
         &_img{
             object-fit: fill;
             width: 100%;
@@ -17,7 +18,6 @@
     }
 
 }
-
 
 .carousel-control-prev, .carousel-control-next {
     font-weight: 700;
