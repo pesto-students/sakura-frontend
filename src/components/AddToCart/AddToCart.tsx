@@ -17,7 +17,7 @@ export default class AddToCart extends React.Component<addToCartProps> {
         let height: string = String(size) + sizeUnit
 
         return (
-            <div className="primary_addToCart" data-testid="addToCart" style={{}} onClick={e=>this.props.addToCartCbk()}>
+            <div className="primary_addToCart" data-testid="addToCart" style={{}} onClick={e=>this.props.addToCartCbk(e)}>
                 <Cart3 className="primary_addToCart_icon" style={{width: width, height:height}}/>
             </div>
         )
@@ -37,6 +37,6 @@ export type addToCartProps = {
       /**
      * Add clicked item to cart 
      */
-    addToCartCbk: () => void;
+    addToCartCbk: (e: any) => void;
     
 }

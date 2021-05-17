@@ -18,8 +18,8 @@ export default class ProductDescription extends React.Component<productDescripti
   renderRating = (rating: number) => {
         return  [1,1,1,1,1].map((item, index)=> {
             return (
-                <div style={{paddingRight:"0.3rem", display:'inline-block'}}>
-                     <Star key={index} isFilled={index < rating?true:false} size={0.7} sizeUnit="rem" />
+                <div style={{paddingRight:"0.3rem", display:'inline-block'}} key={index}>
+                     <Star isFilled={index < rating?true:false} size={0.7} sizeUnit="rem" />
                 </div>
             )
         

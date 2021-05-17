@@ -18,9 +18,10 @@ export default class Card extends React.Component<CardProps> {
 
     render () {
         const productDesc: ProductDescriptionType = this.props.productDesc;
+        // const {onCardClick=()=>{}} = this.props
         return (
             
-            <div className="primary_card">
+            <div className="primary_card" onClick={()=>this.props.handleClick(productDesc.productId)}>
                 <div className="primary_card_productHeader">
                     {/* add product image */}
                         <Img
@@ -35,9 +36,15 @@ export default class Card extends React.Component<CardProps> {
 
                     {/* add addToCart and addToBuy bottom right on image*/}
                     <div className="primary_card_productHeader_bottomRight">
-                        <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={()=>{}}/>
+                        <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={(e)=>{
+                            e.stopPropagation()
+                            return this.props.handleAddToCartClick(productDesc.productId)}}/>
+
                         <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
-                        <AddToFavorite size={1.5} sizeUnit="rem" addToFavoriteCbk={()=>{}}/>
+                        
+                        <AddToFavorite size={1.5} sizeUnit="rem" addToFavoriteCbk={(e)=>{
+                            e.stopPropagation()
+                            this.props.handleAddToFavoriteClick(productDesc.productId)}}/>
                         <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
                     </div>
 
@@ -63,6 +70,7 @@ export type ProductDescriptionType = {
      * discountPercentage 
      */
     discountPercentage?: number,
+    productId:string,
     rating: number,
     brandName: string,
     productName: string,
@@ -79,5 +87,16 @@ export type CardProps = {
      * specify productDescription
      */
      productDesc: ProductDescriptionType
-
+    /**
+     * card click event, take user to product page
+     */
+     handleClick: (productId: string)=>void
+    /**
+     * handleAddToCartClick- Add item to cart
+     */
+     handleAddToCartClick:(productId: string)=>void
+    /**
+     * handleAddToFavoriteClick - Add item to favoirte
+     */
+     handleAddToFavoriteClick:(productId: string)=>void
 }
