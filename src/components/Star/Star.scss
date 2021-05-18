@@ -2,6 +2,7 @@
 
 .primary_star{
     --star-size: 2rem;
+    display: inline-block;
     &_empty{
         color: rgba($color-black, $alpha: 1.0);
         width: var(--star-size);

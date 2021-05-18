@@ -16,7 +16,7 @@ export default class AddToFavorite extends React.Component<addToFavoriteProps> {
         let height: string = String(size) + sizeUnit
 
         return (
-            <div className="primary_addToFavorite" data-testid="addToFavorite" style={{}} onClick={e=>this.props.addToFavoriteCbk()}>
+            <div className="primary_addToFavorite" data-testid="addToFavorite" style={{}} onClick={(e:any)=>this.props.addToFavoriteCbk(e)}>
                 <Heart className="primary_addToFavorite_icon" style={{width: width, height:height}}/>
             </div>
         )
@@ -36,7 +36,7 @@ export type addToFavoriteProps = {
       /**
      * Add clicked item to favorite
      */
-    addToFavoriteCbk: () => void;
+    addToFavoriteCbk: (e: any) => void;
     
 }
 
