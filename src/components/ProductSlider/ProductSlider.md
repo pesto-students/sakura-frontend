@@ -33,5 +33,8 @@ const contentElem = (key, index) => <div key={key}><Card
         handleAddToCartClick={(productId)=>{console.log("clicked on add to cart. "+ "product id:", productId)}}
         handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
         /></div>;
-<ProductSlider sliderHeight="26rem" scrollByValue={280} content={[1,2,3,4,5,6,7,8,9,10].map((val, ind) => contentElem(val, ind))}></ProductSlider>
+<ProductSlider 
+    sliderHeight="26rem" 
+    scrollByValue={280} 
+    content={[1,2,3,4,5,6,7,8,9,10].map((val, ind) => contentElem(val, ind))}></ProductSlider>
 ```
