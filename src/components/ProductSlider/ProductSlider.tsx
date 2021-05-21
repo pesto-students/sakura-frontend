@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useRef } from "react";
 import {
   CaretLeftSquareFill,
   CaretRightSquareFill,
@@ -17,7 +17,7 @@ export const ProductSlider = ({
   scrollByValue = 120,
   content = [],
 }: ProductSliderProps) => {
-  const contentContainerRef = React.createRef<HTMLDivElement>();
+  const contentContainerRef = useRef<HTMLDivElement>(null);
   return (
     <div className="slider-container" style={{ height: sliderHeight }}>
       <div className="slider-button-container">
@@ -43,8 +43,8 @@ export const ProductSlider = ({
         </div>
       </div>
       <div className="slider-content-container" ref={contentContainerRef}>
-        {content?.map((el) => (
-          <div className="slider-content">{el}</div>
+        {content?.map((el, indx) => (
+          <div className="slider-content" key={indx}>{el}</div>
         ))}
       </div>
     </div>
@@ -62,15 +62,15 @@ type ProductSliderProps = {
   /**
    * Overall theme of the slider, including buttons, scroll gets color through this property
    */
-  sliderColor: string;
+  sliderColor?: string;
   /**
    * Height of the slider. Any overflow in y-direction will be clipped and in x-direction scroll bar will appear
    */
-  sliderHeight: string;
+  sliderHeight?: string;
   /**
    * The value by which scroll bar needs to be forwarded, when clicked on navigation buttons
    */
-  scrollByValue: number;
+  scrollByValue?: number;
   /**
    * Array of components which are to be rendered inside the slider
    */

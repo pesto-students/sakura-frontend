@@ -9,6 +9,12 @@ export const getExclusivePromoEvents  = () => {
     return result;
 }
 
+export const getHotProducts = () => {
+    const url = getExclusivePromoUrl();
+    const result = getHttp<any>(url);
+    return result;
+}
+
 // // ************** Transforms (Start) *******************
 
 // export const productsMappedForCardService = (products: IProduct[]): ProductDescriptionType[] => {

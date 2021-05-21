@@ -1,7 +1,7 @@
 import { ActionCreatorWithoutPayload, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ActionsObservable, combineEpics } from 'redux-observable';
 import { map, filter, mergeMap } from 'rxjs/operators';
-import { getExclusivePromoEvents } from './home.service';
+import { getExclusivePromoEvents, getHotProducts } from './home.service';
 
 
 
@@ -9,7 +9,7 @@ const homeSlice = createSlice({
     name: 'home',
     initialState: {
         exclusiveEvents: [],
-        productHotDeals: []
+        hotProductDeals: []
     } as any,
     reducers: {
         getExclusivePromo: (state, action) => { },
@@ -17,7 +17,9 @@ const homeSlice = createSlice({
             state.exclusiveEvents = action.payload || [];
         },
         getProductHotDeals: (state, action) => { },
-        receivedProductHotDeals: (state, action) => { },
+        receivedProductHotDeals: (state, action) => {
+            state.hotProductDeals = action.payload;
+         },
     }
 });
 
@@ -35,6 +37,19 @@ const getEclusivePromoEpic = (action$: ActionsObservable<ActionCreatorWithoutPay
     );
 
 
+const getHotProductsEpic = (action$: ActionsObservable<ActionCreatorWithoutPayload<any>>) =>
+    action$.pipe(
+        filter(getProductHotDeals.match),
+        mergeMap(action => {
+            return getHotProducts().pipe(
+                map(res =>
+                    receivedProductHotDeals(res.data.data)
+                )
+            )
+        })
+    );
+
+
 
 // const getCollectionDealsEpic = (action$: ReduxActionObservable<GetCollectionDealsPayload>) => action$.pipe(
 //     filter(getCategoryDeals.match),
@@ -46,7 +61,7 @@ const getEclusivePromoEpic = (action$: ActionsObservable<ActionCreatorWithoutPay
 //         }
 //     }))
 
-export const homeEpic = combineEpics(getEclusivePromoEpic);
+export const homeEpic = combineEpics(getEclusivePromoEpic, getHotProductsEpic);
 
 
 export const { getExclusivePromo, receivedExclusivePromo, getProductHotDeals, receivedProductHotDeals } = homeSlice.actions;
