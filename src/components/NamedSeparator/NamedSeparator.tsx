@@ -30,9 +30,9 @@ type NamedSeparatorProps = {
   /**
    * The background-color of the header + border
    */
-  backgroundColor: string;
+  backgroundColor?: string;
   /**
    * Header text color
    */
-  textColor: string;
+  textColor?: string;
 };

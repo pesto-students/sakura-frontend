@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Cart3 } from "react-bootstrap-icons";
 import "./Cart.scss";
 

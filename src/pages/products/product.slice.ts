@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { combineEpics } from 'redux-observable';
-import { map, filter, mergeMap, delay, tap, mapTo, catchError} from 'rxjs/operators';
+import { map, filter, mergeMap, delay, mapTo, catchError} from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { push } from 'connected-react-router'
 import { of } from 'rxjs';
