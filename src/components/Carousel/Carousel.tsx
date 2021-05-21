@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import {Carousel as BootstrapCarousel, CarouselItem, CarouselItemProps} from "react-bootstrap"
 import "./Carousel.scss"
-import summerSale from "../../assests/images/banner/summerSale.png"
-import menSale from "../../assests/images/banner/menSale.jpg"
-import saleDay from "../../assests/images/banner/saleDay.jpg"
-import womenSaleCloth from "../../assests/images/banner/womenSaleCloth.jpg"
 import {Img} from 'react-image'
 import defaultImg from "../../assests/images/default/defaultimg.jpg"
 
@@ -22,7 +18,7 @@ export default class Carousel extends Component<CarouselProps, CarouselStates> {
     };
 
     render() {
-        const { width = "50rem", height = "20rem", interval=1000, handleClick=(input)=>{}, items=[summerSale, menSale, saleDay, womenSaleCloth] } = this.props;
+        const { width = "50rem", height = "20rem", interval=1000, handleClick=(input)=>{}, items=[]} = this.props;
         return (
                 <div className="primary_carousel" style={{width:width, height:height}} >
                     <BootstrapCarousel 
