@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useRef } from "react";
+import React from "react";
 import {
   CaretLeftSquareFill,
   CaretRightSquareFill,
@@ -11,51 +11,63 @@ import "./ProductSlider.scss";
  * The slider has navigation buttons along with horizontal bottom scroll
  */
 
-export const ProductSlider = ({
-  sliderColor = "#6B206A",
-  sliderHeight = "10rem",
-  scrollByValue = 120,
-  content = [],
-}: ProductSliderProps) => {
-  const contentContainerRef = useRef<HTMLDivElement>(null);
-  return (
-    <div className="slider-container" style={{ height: sliderHeight }}>
-      <div className="slider-button-container">
-        <div
-          className="left-slider"
-          onClick={(e) => {
-            scrollSlider(contentContainerRef, -scrollByValue);
-          }}
-        >
-          <span style={{ color: sliderColor }}>
-            <CaretLeftSquareFill />
-          </span>
-        </div>
-        <div
-          className="right-slider"
-          onClick={(e) => {
-            scrollSlider(contentContainerRef, scrollByValue);
-          }}
-        >
-          <span style={{ color: sliderColor }}>
-            <CaretRightSquareFill />
-          </span>
-        </div>
-      </div>
-      <div className="slider-content-container" ref={contentContainerRef}>
-        {content?.map((el, indx) => (
-          <div className="slider-content" key={indx}>{el}</div>
-        ))}
-      </div>
-    </div>
-  );
-};
+export class ProductSlider extends React.Component<ProductSliderProps, {}> {
+  contentContainerRef: React.RefObject<HTMLDivElement>;
 
-function scrollSlider(
-  containerRef: React.RefObject<HTMLDivElement>,
-  scrollVal: number
-) {
-  containerRef.current?.scrollBy({ left: scrollVal });
+  constructor(props: ProductSliderProps) {
+    super(props);
+    this.contentContainerRef = React.createRef<HTMLDivElement>();
+    this.scrollSlider = this.scrollSlider.bind(this);
+  }
+
+  scrollSlider(scrollVal: number) {
+    this.contentContainerRef.current?.scrollBy({ left: scrollVal });
+  }
+
+  render() {
+    const {
+      sliderHeight = "10rem",
+      sliderColor = "#6B206A",
+      scrollByValue = 120,
+      content = [],
+    } = this.props;
+    return (
+      <div className="slider-container" style={{ height: sliderHeight }}>
+        <div className="slider-button-container">
+          <div
+            className="left-slider"
+            onClick={(e) => {
+              this.scrollSlider(-scrollByValue);
+            }}
+          >
+            <span style={{ color: sliderColor }}>
+              <CaretLeftSquareFill />
+            </span>
+          </div>
+          <div
+            className="right-slider"
+            onClick={(e) => {
+              this.scrollSlider(scrollByValue);
+            }}
+          >
+            <span style={{ color: sliderColor }}>
+              <CaretRightSquareFill />
+            </span>
+          </div>
+        </div>
+        <div
+          className="slider-content-container"
+          ref={this.contentContainerRef}
+        >
+          {content?.map((el, indx) => (
+            <div className="slider-content" key={indx}>
+              {el}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 }
 
 type ProductSliderProps = {

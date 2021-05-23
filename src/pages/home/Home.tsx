@@ -89,11 +89,12 @@ export const Home = () => {
                     <NamedSeparator title={deal.name} />
                   </div>
                   {/* <ErrorBoundary> */}
-                    <ProductSlider
-                      sliderHeight="30rem"
-                      content={deal.products.map(
-                        (product: any, dealIndx: number) => (
-                          <div key={`${dealIndx}-card`}>
+                  <ProductSlider
+                    sliderHeight="30rem"
+                    content={deal.products.map(
+                      (product: any, dealIndx: number) => (
+                        <div key={`${dealIndx}-card`}>
+                          <ErrorBoundary>
                             <Card
                               productDesc={product}
                               handleClick={(productId) => {
@@ -116,10 +117,11 @@ export const Home = () => {
                                 );
                               }}
                             />
-                          </div>
-                        )
-                      )}
-                    />
+                          </ErrorBoundary>
+                        </div>
+                      )
+                    )}
+                  />
                   {/* </ErrorBoundary> */}
                 </div>
               );
