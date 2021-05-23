@@ -31,7 +31,11 @@ export default class Carousel extends Component<CarouselProps, CarouselStates> {
                         onSelect={this.handleSelect}>
                         {items.map((item: any, index: any)=>{
                             return (
-                            <BootstrapCarousel.Item className="carousel-item primary_carousel_item" key={index} onClick={()=>handleClick(this.state.index)}   style={{width:width, height:height}}>
+                            <BootstrapCarousel.Item 
+                            className="carousel-item primary_carousel_item"
+                            key={index} 
+                            onClick={()=>handleClick(this.state.index)}   
+                            style={{width:width, height:height}}>
                                 <Img
                                 src={item}
                                 className="primary_carousel_item_img"
