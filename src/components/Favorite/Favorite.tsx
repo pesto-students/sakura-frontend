@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { Heart } from 'react-bootstrap-icons';
 import "./Favorite.scss"
 

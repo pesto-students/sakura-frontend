@@ -1,10 +1,10 @@
-import React from 'react'
-import Cart from "../../components/Cart/Cart"
-import Favorite from "../../components/Favorite/Favorite"
-import Star from "../../components/Star/Star"
-import AddToCart from "../../components/AddToCart/AddToCart"
-import ProductDescription from '../../components/ProductDescription'
-import Carousel from "../../components/Carousel"
+// import React from 'react'
+// import Cart from "../../components/Cart/Cart"
+// import Favorite from "../../components/Favorite/Favorite"
+// import Star from "../../components/Star/Star"
+// import AddToCart from "../../components/AddToCart/AddToCart"
+// import ProductDescription from '../../components/ProductDescription'
+// import Carousel from "../../components/Carousel"
 import Footer from "../../components/Footer"
 
 

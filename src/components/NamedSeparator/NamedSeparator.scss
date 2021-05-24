@@ -4,9 +4,10 @@
 
 .named-separator-header div {
     font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
     height: auto;
     width: max-content;
-    padding: 0.2rem 0.8rem 0.1rem 0.8rem;
+    padding: 1rem 0.8rem 0.1rem 0.8rem;
     margin-left: 0.5rem;
     & > p {
         text-transform: uppercase;
