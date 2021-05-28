@@ -95,7 +95,7 @@ export type CarouselProps = {
   /**
    * Pass list of images that need to be displayed in Carousel
    */
-  items: [];
+  items: any[];
   /**
    * handleClick function defines what should happen on clicking the component
    * gets current silde index
