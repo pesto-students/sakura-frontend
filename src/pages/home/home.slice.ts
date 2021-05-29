@@ -1,4 +1,4 @@
-import { ActionCreatorWithoutPayload, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ActionsObservable, combineEpics } from 'redux-observable';
 import { map, filter, mergeMap } from 'rxjs/operators';
 import { getExclusivePromoEvents, getHotProducts } from './home.service';
@@ -37,7 +37,7 @@ const getEclusivePromoEpic = (action$: ActionsObservable<ActionCreatorWithoutPay
     );
 
 
-const getHotProductsEpic = (action$: ActionsObservable<ActionCreatorWithoutPayload<any>>) =>
+const getHotProductsEpic = (action$: ActionsObservable<ActionCreatorWithPayload<any>>) =>
     action$.pipe(
         filter(getProductHotDeals.match),
         mergeMap(action => {

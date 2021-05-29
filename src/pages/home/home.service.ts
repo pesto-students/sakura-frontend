@@ -1,16 +1,16 @@
 import { merge } from "object-mapper";
 import { getHttp } from "../../shared/services/http.service";
-import { getExclusivePromoUrl } from "../../shared/consts";
+import { getExclusivePromoUrl, getHotDealsUrl } from "../../shared/consts";
 
 
-export const getExclusivePromoEvents  = () => {
+export const getExclusivePromoEvents = () => {
     const url = getExclusivePromoUrl();
     const result = getHttp<any>(url);
     return result;
 }
 
 export const getHotProducts = () => {
-    const url = getExclusivePromoUrl();
+    const url = getHotDealsUrl();
     const result = getHttp<any>(url);
     return result;
 }
