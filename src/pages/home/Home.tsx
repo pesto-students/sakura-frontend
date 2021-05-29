@@ -17,13 +17,13 @@ export const Home = () => {
   const hotProductDeals = useAppSelector((state) => state.home.hotProductDeals);
 
   const carousalImages = exclusiveEvents.map(
-    (event: any) => event["carousalImage"]["uri"]
+    (event: any) => event["carouselImage"]["uri"]
   );
 
   let topDealsCard = hotProductDeals
     .map((deal: any) => {
-      if (!deal.eventCollections) return null;
-      const products = deal.eventCollections.map((collection: any) => {
+      if (!deal.eventCollection) return null;
+      const products = deal.eventCollection.map((collection: any) => {
         const product = collection.product;
         const discount = collection.discount;
         const inventory = product.inventory;
@@ -31,7 +31,7 @@ export const Home = () => {
         const reatilPrice = inventory.retailPrice;
         const discountedPrice =
           reatilPrice - Math.round(reatilPrice * 0.01 * discount.discountRate);
-        const productAsset = product.productAssets[0].asset;
+        const productAsset = product.productAssets[0];
         return {
           productName: product.name,
           productColor: product.color,
@@ -42,7 +42,7 @@ export const Home = () => {
           productId: product.id,
           discountPercentage: parseInt(discount.discountRate),
           brandName: productClass.brandName,
-          productImage: productAsset.uri,
+          productImage: productAsset.publicAsset.uri,
         };
       });
       return {
