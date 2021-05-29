@@ -1,0 +1,64 @@
+@import "../../sassStyles/globals";
+
+.primary_card2{
+    border-radius: 4px;
+   position: relative;
+   width: 100%;
+   height: 100%;
+   display: grid;
+   grid-template-columns: 40% 60%;
+   grid-template-rows: 1;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   overflow: hidden;
+   &_productHeader{
+        width: 100%;
+        height: 100%;
+        &_img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+   }
+   
+   &_productDesc {
+    display: grid;
+    padding: 0 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr) 2fr;
+        &_brandName{
+            grid-column: 1/3;
+            align-self: center;
+            color: $secondary-color;
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+        &_quantity{
+            align-self: end;
+            grid-column: 3/4;
+            grid-row: 1/2;
+        }
+
+        &_productName{
+            grid-row: 2/3;
+            align-self: center;
+            color: $primary-color;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        &_color{
+            grid-row: 3/4;
+        }
+        &_size{
+            grid-row: 4/5;
+        }
+        &_actions{
+            grid-row: 5/6;
+            grid-column: 1/3;
+        }
+        &_price{
+            grid-row: 5/6;
+            grid-column: 3/4;
+        }
+   }
+}   
+
