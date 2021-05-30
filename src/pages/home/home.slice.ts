@@ -8,13 +8,13 @@ import { getExclusivePromoEvents, getHotProducts } from './home.service';
 const homeSlice = createSlice({
     name: 'home',
     initialState: {
-        exclusiveEvents: [],
-        hotProductDeals: []
+        exclusiveEvents: [], //exclusivePromoData.data,
+        hotProductDeals: []  //hotProductDeals.data
     } as any,
     reducers: {
         getExclusivePromo: (state, action) => { },
         receivedExclusivePromo: (state, action: PayloadAction<any>) => {
-            state.exclusiveEvents = action.payload || [];
+            state.exclusiveEvents =  action.payload || [];
         },
         getProductHotDeals: (state, action) => { },
         receivedProductHotDeals: (state, action) => {

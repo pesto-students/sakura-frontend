@@ -1,5 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Col, Row } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
+import {getProductDetailReducer} from "./product.slice"
+import { createMatchSelector } from "connected-react-router";
 import "./product.scss"
 
 import Footer from "../../components/Footer"
@@ -11,17 +14,39 @@ import Dropdown from "../../components/Dropdown"
 import QuantityInput from "../../components/QuantityInput"
 import AddTocart from "../../components/AddToCart"
 import AddToFavorite from "../../components/AddToFavorite"
-import product1_img1 from "../../assests/images/productImages/product1_img1.jpg"
-import product1_img2 from "../../assests/images/productImages/product1_img2.jpg"
-import product1_img3 from "../../assests/images/productImages/product1_img3.jpg"
-import product1_img4 from "../../assests/images/productImages/product1_img4.jpg"
-
-import { truncate } from 'fs/promises';
+import Color from "../../components/Color"
+import { getProductDetail } from './product.service';
 
 
-export default function Product() {
-    const itemsList = [product1_img1, product1_img2, product1_img3, product1_img4]
 
+export default function Product(props: any) {
+    
+    // get state value
+    const dispatch = useAppDispatch()
+    const productDetails =  useAppSelector((state)=>state.product.productDetail)
+    const matchSelector = createMatchSelector("/product/:productId");
+    const match: any =  useAppSelector((state)=>matchSelector(state))
+
+    // dispatch action
+    useEffect(() => {
+            dispatch(getProductDetailReducer({productId: match.params.productId }))
+      }, []);
+
+     // get image data from productDetails 
+    const carousalImages = productDetails[0]?.productAssets.map((item: any)=>item.publicAsset.uri);
+    
+    // get product defailt 
+    let productDetail = {
+        brandName: productDetails[0]?.productClass.brandName,
+        productName: productDetails[0]?.name,
+        color: productDetails[0]?.color,
+        size: productDetails[0]?.size,
+        productDesc: productDetails[0]?.description,
+        rating: parseInt(productDetails[0]?.productClass.rating),
+        originalPrice: `INR ${productDetails[0]?.inventory.retailPrice}`,
+        discountedPrice:`INR ${productDetails[0]?.inventory.costPrice}`,
+        productId: productDetails[0]?.id,
+    }
     const renderRating = (rating: number) => {
         return  [1,1,1,1,1].map((item, index)=> {
             return (
@@ -31,7 +56,6 @@ export default function Product() {
             )
         
         })
-        
     }
 
     return (
@@ -42,8 +66,7 @@ export default function Product() {
             {/* product details */}
             <div className="primary_ProductDetails">
                 <Row>    
-                    
-                    <Col sm={4}>
+                    <Col sm={5}>
                         <div className="primary_ProductDetails_carousel">
                             <ErrorBoundary>
                                 <Carousel
@@ -53,32 +76,30 @@ export default function Product() {
                                     handleClick={(index) => {
                                     console.log("current slide index:", index);
                                     }}
-                                    items={itemsList}
+                                    items={carousalImages}
                                 />
                             </ErrorBoundary>
+        
                         </div>
                     </Col>
-                        
-                    <Col sm={8}>
+                    <Col sm={7}>
                         <div className="primary_ProductDetails_desc">
                             <div className="primary_ProductDetails_desc_brandName">
-                                Zara
+                                {productDetail.brandName}
                             </div>
                             <div className="primary_ProductDetails_desc_productName">
-                                Skirt
+                                {productDetail.productName}
                             </div>
                             <div className="primary_ProductDetails_desc_rating">
-                                {renderRating(4)}
+                                {renderRating(productDetail.rating)}
                             </div>
                             <div className="primary_ProductDetails_desc_desc">
-                            Short dress in soft cotton jersey with decorative buttons down the front and a wide, 
-                            frill-trimmed square neckline with concealed elastication. 
-                            Elasticated seam under the bust and short puff sleeves with a small frill trim.
+                            {productDetail.productDesc}
                             </div>
                             <div className="primary_ProductDetails_desc_price">
-                                {true &&<div className="primary_ProductDetails_desc_price_productOrignalPrice">30$</div>}
+                                {true &&<div className="primary_ProductDetails_desc_price_productOrignalPrice">{productDetail.originalPrice}</div>}
                                 
-                                {true && <div className="primary_ProductDetails_desc_price_productDiscountedPrice">20$</div>}
+                                {true && <div className="primary_ProductDetails_desc_price_productDiscountedPrice">{productDetail.discountedPrice}</div>}
                             </div>
                             <div className="primary_ProductDetails_desc_group1">
                                 <div className="primary_ProductDetails_desc_group1_color">
@@ -86,8 +107,9 @@ export default function Product() {
                                     <div style={{display:"inline-block"}}>
                                     <Dropdown  
                                         handleChange={(value)=>console.log("dropdown value"+value)} 
-                                        initialValue="Yellow" 
-                                        possibleValues={["Red", "Green", "Brown"]}
+                                        initialValue={productDetail.color}
+                                        possibleValues={["black","brown", "pink"]}
+                                        isColor={true}
                                         />
                                     </div>
                                 </div>
@@ -96,7 +118,7 @@ export default function Product() {
                                     <div style={{display:"inline-block"}}>
                                     <Dropdown  
                                             handleChange={(value)=>console.log("dropdown value"+value)} 
-                                            initialValue="Small" 
+                                            initialValue={productDetail.size}
                                             possibleValues={["Small", "Medlim", "Large"]}/>
                                     </div>
                                 </div>
@@ -119,17 +141,21 @@ export default function Product() {
 
                             {/* category */}
                             <div className="primary_ProductDetails_desc_bottom">
-                                <div style={{display:"inline-block", alignSelf:"center", fontWeight:300}}>SKU:&nbsp;&nbsp;#12345AS245</div><br/>
-                                <div style={{display:"inline-block", alignSelf:"center", fontWeight:300}}>Category:&nbsp;&nbsp;Fashion</div>
+                                <div style={{display:"inline-block", alignSelf:"center", fontWeight:300}}>SKU:&nbsp;&nbsp;{productDetail.productId}</div><br/>
+                                {/* <div style={{display:"inline-block", alignSelf:"center", fontWeight:300}}>Category:&nbsp;&nbsp;Fashion</div> */}
                             </div>
                         </div>
                     </Col>
                     
                 </Row>
             </div>
+            
             {/* footer */}
             <Footer/>
             
         </Fragment>
     )
 }
+
+
+

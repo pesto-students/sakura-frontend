@@ -5,13 +5,14 @@ import Carousel from "../../components/Carousel";
 import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
+import { push } from 'connected-react-router'
 
 import "./home.scss";
 import ProductSlider from "../../components/ProductSlider";
 import Card from "../../components/Card";
 import { ErrorBoundary } from "../../components/ErrorBoundary/ErrorBoundary";
 
-export const Home = () => {
+export const Home = (props: any) => {
   const dispatch = useAppDispatch();
   const exclusiveEvents = useAppSelector((state) => state.home.exclusiveEvents);
   const hotProductDeals = useAppSelector((state) => state.home.hotProductDeals);
@@ -23,8 +24,9 @@ export const Home = () => {
   let topDealsCard = hotProductDeals
     .map((deal: any) => {
       if (!deal.eventCollection) return null;
-      const products = deal.eventCollection.map((collection: any) => {
+        const products = deal.eventCollection.map((collection: any) => {
         const product = collection.product;
+        const ProductId = collection.productId
         const discount = collection.discount;
         const inventory = product.inventory;
         const productClass = product.productClass;
@@ -39,7 +41,7 @@ export const Home = () => {
           originalPrice: `INR ${inventory.retailPrice}`,
           discountedPrice: `INR ${discountedPrice}`,
           rating: parseInt(productClass.rating),
-          productId: product.id,
+          productId: ProductId,
           discountPercentage: parseInt(discount.discountRate),
           brandName: productClass.brandName,
           productImage: productAsset.publicAsset.uri,
@@ -98,6 +100,7 @@ export const Home = () => {
                             <Card
                               productDesc={product}
                               handleClick={(productId) => {
+                                 dispatch(push(`/product/${productId}`))
                                 console.log(
                                   "clicked on product card. " + "product id:",
                                   productId

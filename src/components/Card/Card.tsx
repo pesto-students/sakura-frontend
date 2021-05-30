@@ -21,7 +21,9 @@ export default class Card extends React.Component<CardProps> {
         // const {onCardClick=()=>{}} = this.props
         return (
             
-            <div className="primary_card" onClick={()=>this.props.handleClick(productDesc.productId)}>
+            <div className="primary_card" onClick={()=>{
+                return this.props.handleClick(productDesc.productId)
+                }}>
                 <div className="primary_card_productHeader">
                     {/* add product image */}
                         <Img
