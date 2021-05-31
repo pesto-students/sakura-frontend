@@ -1,11 +1,4 @@
-export let API_URL = "";
-
-if (process.env["NODE_ENV"] === "development") {
-    API_URL = `${process.env["REACT_APP_API_URL"]}/api`;
-} else {
-    API_URL = "/api";
-}
-// export const API_URL = `/api`;
+export const API_URL = process.env["REACT_APP_API_URL"];
 
 /** Home page URIs */
 // export const getProductsUrl = () => `${API_URL}/product`;
