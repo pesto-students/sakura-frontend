@@ -87,7 +87,7 @@ export default function Cart(props: any) {
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="email" placeholder="Enter email*" required={true} />
                             <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                             </Form.Text>
@@ -95,11 +95,11 @@ export default function Cart(props: any) {
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Phone Number</Form.Label>
-                            <Form.Control type="text" placeholder="Enter phone no." />
+                            <Form.Control type="text" placeholder="Enter phone no*" required={true}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Address" />
+                            <Form.Control type="text" placeholder="Enter Address*"  required={true}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox" >
                             <Form.Check type="checkbox" label="Cash on Delivery" checked={true}/>

@@ -6,6 +6,7 @@ import Favorite from "../../components/Favorite";
 import SearchBar from "../../components/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import {getItemFromCart} from "../cart/cart.slice"
+import {getItemFromFavorite} from "../favorite/favorite.slice"
 import { push } from 'connected-react-router'
 import "./header.scss";
 
@@ -25,6 +26,7 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     dispatch(getItemFromCart({}))
+    dispatch(getItemFromFavorite({}))
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
   }, []);
