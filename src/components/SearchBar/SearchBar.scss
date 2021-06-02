@@ -4,104 +4,100 @@ $search-bar-height: 2.5em;
 $result-entries-height: 1.7em;
 
 .search-bar {
-    position: relative;
+  position: relative;
 }
 
 .search-button {
-    position: absolute;
-    display: inline;
-    top: 0.5%;
-    align-content: center;
-    border-radius: 50%;
-    border: 3px solid $secondary-color;
-    background-color: $primary-color;
-    height: $search-bar-height - 0.1em;
-    width: $search-bar-height - 0.1em;
+  position: absolute;
+  display: inline;
+  top: 0.5%;
+  align-content: center;
+  border-radius: 50%;
+  border: 3px solid $secondary-color;
+  background-color: $primary-color;
+  height: $search-bar-height - 0.1em;
+  width: $search-bar-height - 0.1em;
 }
 
 #search-icon {
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    height: 60%;
-    width: 60%;
-    cursor: pointer;
-    color: #ffff;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  height: 60%;
+  width: 60%;
+  cursor: pointer;
+  color: #ffff;
 }
 
 .search-text-container {
-    position: relative;
-    border: 2px solid $secondary-color;
-    border-radius: 30px;
-    height: $search-bar-height;
+  position: relative;
+  border: 2px solid $secondary-color;
+  border-radius: 30px;
+  height: $search-bar-height;
 }
 
 .search-text {
-    all: unset;
-    position: absolute;
-    // top: 5%;
-    // bottom: 5%;
-    height: $search-bar-height;
-    width: 70%;
-    left: $search-bar-height + 0.5em;
-    font-family: 'Roboto', sans-serif;
+  all: unset;
+  position: absolute;
+  // top: 5%;
+  // bottom: 5%;
+  height: $search-bar-height;
+  width: 70%;
+  left: $search-bar-height + 0.5em;
+  font-family: "Roboto", sans-serif;
 }
 
-
 .search-result-container {
-    position: absolute;
-    background-color: #ffff;
-    left: 2%;
-    border-radius: 5px;
+  position: absolute;
+  background-color: #ffff;
+  left: 2%;
+  border-radius: 5px;
+  z-index: 10;
 }
 
 .search-focused {
-    max-height: $result-entries-height * 5 + 0.25em;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    border: 1px solid $secondary-color;
-    transition: max-height 0.5s ease;
-    transform: translateY(0);
+  max-height: $result-entries-height * 5 + 0.25em;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border: 1px solid $secondary-color;
+  transition: max-height 0.5s ease;
+  transform: translateY(0);
 }
 
 .search-defocused {
-    max-height: 0;
-    border: 0 solid $secondary-color;
-    transition: max-height 0.5s ease;
-    transform: translateY(0);
+  max-height: 0;
+  border: 0 solid $secondary-color;
+  transition: max-height 0.5s ease;
+  transform: translateY(0);
 
-    .result-entries {
-        max-height: 0;
-        border: 0;
-        visibility: hidden;
-    }
+  .result-entries {
+    max-height: 0;
+    border: 0;
+    visibility: hidden;
+  }
 }
 
-
 .result-entries {
-    height: $result-entries-height;
-    cursor: pointer;
-    border-top: 0.5px solid $secondary-color;
+  height: $result-entries-height;
+  cursor: pointer;
+  border-top: 0.5px solid $secondary-color;
 
-    &:hover {
-        background-color: $secondary-color;
-        color: #ffff;   
+  &:hover {
+    background-color: $secondary-color;
+    color: #ffff;
+  }
+
+  div {
+    height: 100%;
+    p {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      top: 15%;
+      left: 5%;
+      font-family: "Roboto", sans-serif;
+      height: 100%;
+      width: 100%;
     }
-
-
-    div {
-        height: 100%;
-        p {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            top: 15%;
-            left: 5%;
-            font-family: 'Roboto', sans-serif;
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-
+  }
 }

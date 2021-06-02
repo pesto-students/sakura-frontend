@@ -3,29 +3,51 @@ import { Col, Row } from "react-bootstrap";
 import AppLogo from "../../components/AppLogo";
 import Cart from "../../components/Cart";
 import Favorite from "../../components/Favorite";
-import SearchBar from "../../components/SearchBar";
+import SearchBar, { SearchResults } from "../../components/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
-import {getItemFromCart} from "../cart/cart.slice"
-import { push } from 'connected-react-router'
+import { getItemFromCart } from "../cart/cart.slice";
+import { push } from "connected-react-router";
 import "./header.scss";
+import { getSearchQuery } from "./header-slice";
 
 export const Header: React.FC = () => {
   const [cartCount, updateCartCount] = useState(0);
   const [favoriteCount, updateFavoriteCount] = useState(0);
-  const cartItems =  useAppSelector((state)=>state.cart.cartItems)
-  const dispatch = useAppDispatch() 
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const fetchedSearchResults = useAppSelector(
+    (state) => state.header.searchResults
+  );
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    updateCartCount(cartItems.length)
+    updateCartCount(cartItems.length);
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
   }, [cartItems]);
 
   useEffect(() => {
-    dispatch(getItemFromCart({}))
+    dispatch(getItemFromCart({}));
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
   }, []);
+
+  const formatSearchResults = () => {
+    const formattedSearchResults: SearchResults[] = [];
+    fetchedSearchResults.forEach((res) => {
+      res.subCategories.forEach((subCategory) => {
+        formattedSearchResults.push({
+          title: subCategory.name,
+          meta: {
+            categoryId: res.id,
+            categoryName: res.name,
+            subCategoryId: subCategory.id,
+          },
+        });
+      });
+    });
+    return formattedSearchResults;
+  };
 
   return (
     <Row className="header-container">
@@ -36,7 +58,13 @@ export const Header: React.FC = () => {
       </Col>
       <Col xs={8}>
         <div className="header-content">
-          <SearchBar searchCbk={() => {}} resultClickFn={() => {}}></SearchBar>
+          <SearchBar
+            searchCbk={(str: string) => {
+              dispatch(getSearchQuery({ matchString: str }));
+            }}
+            resultClickFn={() => {}}
+            searchResults={formatSearchResults()}
+          ></SearchBar>
         </div>
       </Col>
       <Col xs={1}>
@@ -47,9 +75,12 @@ export const Header: React.FC = () => {
       <Col xs={1}>
         <div className="header-content">
           {/* Write callback to route to next page upon change */}
-          <Cart cartItemCount={cartCount} cartCbk={() => {
-             dispatch(push(`/cart`))
-          }} />
+          <Cart
+            cartItemCount={cartCount}
+            cartCbk={() => {
+              dispatch(push(`/cart`));
+            }}
+          />
         </div>
       </Col>
     </Row>

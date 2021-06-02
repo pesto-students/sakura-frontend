@@ -9,12 +9,12 @@ import { getProductDetail } from './product.service';
 const productSlice = createSlice({
     name: 'product',
     initialState: {
-        productDetail: []
+        productDetail: {}
     } as any,
     reducers: {
         getProductDetailReducer: (state, action) => { },
         receivedProductDetailReducer: (state, action: PayloadAction<any>) => {
-            state.productDetail =  action.payload || [];
+            state.productDetail = action.payload || {};
         }
     }
 });

@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import Carousel from "../../components/Carousel";
 import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
-import Footer from "../../components/Footer"
+import Footer from "../../components/Footer";
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
-import { push } from 'connected-react-router'
+import { push } from "connected-react-router";
 
 import "./home.scss";
 import ProductSlider from "../../components/ProductSlider";
@@ -25,9 +25,9 @@ export const Home = (props: any) => {
   let topDealsCard = hotProductDeals
     .map((deal: any) => {
       if (!deal.eventCollection) return null;
-        const products = deal.eventCollection.map((collection: any) => {
+      const products = deal.eventCollection.map((collection: any) => {
         const product = collection.product;
-        const ProductId = collection.productId
+        const ProductId = collection.productId;
         const discount = collection.discount;
         const inventory = product.inventory;
         const productClass = product.productClass;
@@ -62,7 +62,11 @@ export const Home = (props: any) => {
 
   return (
     <div>
-      <Header />
+      <Row>
+        <Col>
+          <Header />
+        </Col>
+      </Row>
       <Row>
         {/* <Col md={0}></Col> */}
         <Col>
@@ -101,7 +105,7 @@ export const Home = (props: any) => {
                             <Card
                               productDesc={product}
                               handleClick={(productId) => {
-                                 dispatch(push(`/product/${productId}`))
+                                dispatch(push(`/product/${productId}`));
                                 console.log(
                                   "clicked on product card. " + "product id:",
                                   productId
@@ -133,7 +137,7 @@ export const Home = (props: any) => {
           </div>
         </Col>
       </Row>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
