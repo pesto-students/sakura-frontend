@@ -6,6 +6,8 @@ import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
 import Footer from "../../components/Footer";
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
+import { addItemToCart } from "../cart/cart.slice";
+import { addItemToFavorite } from "../favorite/favorite.slice";
 import { push } from "connected-react-router";
 
 import "./home.scss";
@@ -40,7 +42,7 @@ export const Home = (props: any) => {
           productColor: product.color,
           productSize: product.size,
           originalPrice: `INR ${inventory.retailPrice}`,
-          discountedPrice: `INR ${discountedPrice}`,
+          discountedPrice: `INR ${inventory.costPrice}`,
           rating: parseInt(productClass.rating),
           productId: ProductId,
           discountPercentage: parseInt(discount.discountRate),
@@ -59,6 +61,32 @@ export const Home = (props: any) => {
     dispatch(getExclusivePromo({}));
     dispatch(getProductHotDeals({}));
   }, []);
+
+  const handleAddToCartClick = (data: any) => {
+    let sendData = {
+      ...data,
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor,
+    };
+
+    dispatch(addItemToCart(sendData));
+  };
+
+  const handleAddToFavoriteClick = (data: any) => {
+    let sendData = {
+      ...data,
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor,
+    };
+
+    dispatch(addItemToFavorite(sendData));
+  };
 
   return (
     <div>
@@ -106,23 +134,12 @@ export const Home = (props: any) => {
                               productDesc={product}
                               handleClick={(productId) => {
                                 dispatch(push(`/product/${productId}`));
-                                console.log(
-                                  "clicked on product card. " + "product id:",
-                                  productId
-                                );
                               }}
                               handleAddToCartClick={(productId) => {
-                                console.log(
-                                  "clicked on add to cart. " + "product id:",
-                                  productId
-                                );
+                                handleAddToCartClick(product);
                               }}
                               handleAddToFavoriteClick={(productId) => {
-                                console.log(
-                                  "clicked on add to favorite. " +
-                                    "product id:",
-                                  productId
-                                );
+                                handleAddToFavoriteClick(product);
                               }}
                             />
                           </ErrorBoundary>

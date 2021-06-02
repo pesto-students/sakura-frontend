@@ -1,18 +1,34 @@
 @import "~bootstrap/scss/bootstrap";
 
-.header-container {
+.header_container {
   padding-top: 1rem;
   align-items: center;
   justify-content: center;
   height: 70%;
-}
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr 1fr;
+  grid-template-rows: auto;
 
-.header-content {
-  margin: 0 auto;
-}
-
-@include media-breakpoint-up(md) {
-  #header-favorite {
-    padding-left: 3rem;
+  &_cart{
+    grid-column: 4/5;
+    justify-self: start;
   }
+  
+  &_logo{
+    grid-column: 1/2;
+  }
+
+  &_favorite{
+    align-self: center;
+    justify-self: center;
+  }
+
 }
+
+
+
+// @include media-breakpoint-up(md) {
+//   #header-favorite {
+//     padding-left: 3rem;
+//   }
+// }

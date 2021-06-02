@@ -5,6 +5,7 @@ import { history } from "./appStore/store";
 import Home from "./pages/home";
 import Test from "./pages/Test/Test";
 import Cart from "./pages/cart/Cart";
+import Favorite from "./pages/favorite/Favroite";
 import Product from "./pages/product";
 
 // routes prepended with "/app" shall be auth protected routes
@@ -35,6 +36,16 @@ export default function AppRoutes() {
           )}
         />
         <Route
+          path="/favorite"
+          exact={true}
+          render={() => (
+            <div>
+              {" "}
+              <Favorite />
+            </div>
+          )}
+        />
+        <Route
           path="/product/:id"
           exact={true}
           render={() => (
@@ -43,6 +54,40 @@ export default function AppRoutes() {
               <Product />
             </div>
           )}
+        />
+
+        {/* Auth Routes */}
+        <Route
+          path="/auth/login"
+          exact={true}
+          render={() => <div>Login</div>}
+        />
+        <Route
+          path="/auth/signup"
+          exact={true}
+          render={() => <div>Signup</div>}
+        />
+        <Route
+          path="/auth/reset-password"
+          exact={true}
+          render={() => <div>Reset Password</div>}
+        />
+
+        {/* Routes protected by auth */}
+        <Route
+          path="/app/checkout"
+          exact={true}
+          render={() => <div>Checkout</div>}
+        />
+        <Route
+          path="/app/profile"
+          exact={true}
+          render={() => <div>Profile</div>}
+        />
+        <Route
+          path="/app/profile"
+          exact={true}
+          render={() => <div>Profile</div>}
         />
 
         {/* Auth Routes */}

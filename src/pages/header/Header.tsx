@@ -6,6 +6,7 @@ import Favorite from "../../components/Favorite";
 import SearchBar, { SearchResults } from "../../components/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import { getItemFromCart } from "../cart/cart.slice";
+import { getItemFromFavorite } from "../favorite/favorite.slice";
 import { push } from "connected-react-router";
 import "./header.scss";
 import { getSearchQuery } from "./header-slice";
@@ -14,6 +15,7 @@ export const Header: React.FC = () => {
   const [cartCount, updateCartCount] = useState(0);
   const [favoriteCount, updateFavoriteCount] = useState(0);
   const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const favoriteItems = useAppSelector((state) => state.favorite.favoriteItems);
   const fetchedSearchResults = useAppSelector(
     (state) => state.header.searchResults
   );
@@ -22,12 +24,15 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     updateCartCount(cartItems.length);
+    updateFavoriteCount(favoriteItems.length);
+
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
-  }, [cartItems]);
+  }, [cartItems, favoriteItems]);
 
   useEffect(() => {
     dispatch(getItemFromCart({}));
+    dispatch(getItemFromFavorite({}));
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
   }, []);
@@ -50,9 +55,14 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <Row className="header-container">
-      <Col xs={2}>
-        <div className="header-content">
+    <div className="header_container">
+      <Col>
+        <div
+          className="header_container_logo"
+          onClick={() => {
+            dispatch(push(`/`));
+          }}
+        >
           <AppLogo />
         </div>
       </Col>
@@ -66,14 +76,17 @@ export const Header: React.FC = () => {
             searchResults={formatSearchResults()}
           ></SearchBar>
         </div>
-      </Col>
-      <Col xs={1}>
-        <div id="header-favorite" className="header-content">
-          <Favorite favoriteItemCount={favoriteCount} favoriteCbk={() => {}} />
+
+        <div id="header-favorite" className="header_container_favorite">
+          <Favorite
+            favoriteItemCount={favoriteCount}
+            favoriteCbk={() => {
+              dispatch(push(`/favorite`));
+            }}
+          />
         </div>
-      </Col>
-      <Col xs={1}>
-        <div className="header-content">
+
+        <div className="header_container_cart">
           {/* Write callback to route to next page upon change */}
           <Cart
             cartItemCount={cartCount}
@@ -83,6 +96,6 @@ export const Header: React.FC = () => {
           />
         </div>
       </Col>
-    </Row>
+    </div>
   );
 };

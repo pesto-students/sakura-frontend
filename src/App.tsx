@@ -54,10 +54,10 @@ class App extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <div className="App">
+        {/* <div className="App">
           <button onClick={() => Auth.federatedSignIn()}>Sign In</button>
           <button onClick={() => Auth.signOut()}>Sign Out</button>
-        </div>
+        </div> */}
         <div>
           <AppLayout>
             <AppRoutes />

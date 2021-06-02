@@ -35,9 +35,11 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            cartItems.filter((item: any)=> item.productId !== action.payload.productId)
-            localStorage.setItem("cartItems", JSON.stringify(cartItems));
-            state.cartItems = cartItems
+            let newCartItems = cartItems.filter((item: any)=> item.productId !== action.payload.productId)
+            console.log(newCartItems)
+            localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+
+            state.cartItems = newCartItems
         },
 
         updateItemToCart: (state, action: PayloadAction<any>) => {
@@ -48,7 +50,6 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            console.log(action.payload)
             cartItems = cartItems.map((item: any)=> {
                 if(item.productId !== action.payload.productId)
                 {
@@ -71,10 +72,15 @@ const cartSlice = createSlice({
             }
             state.cartItems = cartItems
         },
+
+        emptyCart: (state, action: PayloadAction<any>) => {
+            localStorage.setItem("cartItems", JSON.stringify([]));
+            state.cartItems = []
+        }
     }
 });
 
 
 
-export const { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart } = cartSlice.actions;
+export const { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;

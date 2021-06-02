@@ -12,6 +12,7 @@ import home, { homeEpic } from '../pages/home/home.slice';
 import product, { productEpic } from "../pages/product/product.slice"
 import cart from "../pages/cart/cart.slice"
 import header, { headerEpic } from '../pages/header/header-slice';
+import favorite from "../pages/favorite/favorite.slice"
 
 export const rootEpic = combineEpics(
   homeEpic,
@@ -25,7 +26,8 @@ const createRootReducer = (history: any) => combineReducers({
   appLayout,
   product,
   cart,
-  header
+  header,
+  favorite
 });
 
 export default createRootReducer;
