@@ -2,8 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Col, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import {getProductDetailReducer} from "./product.slice"
-import { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart } from "../cart/cart.slice"
+import { addItemToCart} from "../cart/cart.slice"
+import {addItemToFavorite} from "../favorite/favorite.slice"
 import { createMatchSelector } from "connected-react-router";
+
 
 import "./product.scss"
 
@@ -17,6 +19,7 @@ import QuantityInput from "../../components/QuantityInput"
 import AddTocart from "../../components/AddToCart"
 import AddToFavorite from "../../components/AddToFavorite"
 import Color from "../../components/Color"
+import Spinner from "../../components/Spinner"
 import { getProductDetail } from './product.service';
 
 
@@ -84,7 +87,10 @@ export default function Product(props: any) {
 
     const handleAddToCartClick = (data: any) => {
         dispatch(addItemToCart(data))
-        console.log("handleAddToCartClick")
+    }
+
+    const handleAddToFavoriteClick = (data: any) => {
+        dispatch(addItemToFavorite(data))
     }
 
     const renderRating = (rating: number) => {
@@ -97,14 +103,15 @@ export default function Product(props: any) {
         
         })
     }
-
+    console.log(productDetail)
     return (
+       
         <Fragment>
             {/* header */}
             <Header/>
 
             {/* product details */}
-            <div className="primary_ProductDetails">
+            {(productDetails && productDetails.length > 0) ? (<div className="primary_ProductDetails">
                 <Row>    
                     <Col sm={5}>
                         <div className="primary_ProductDetails_carousel">
@@ -159,6 +166,7 @@ export default function Product(props: any) {
                                     <Dropdown  
                                             handleChange={(value)=>console.log("dropdown value"+value)} 
                                             initialValue={productDetail.size}
+                                            isColor={false}
                                             possibleValues={["Small", "Medlim", "Large"]}/>
                                     </div>
                                 </div>
@@ -173,12 +181,16 @@ export default function Product(props: any) {
                             <div className="primary_ProductDetails_desc_group2">
                                 <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={(e)=>{
                                         e.stopPropagation()
-                                            handleAddToCartClick(productState)
+                                        handleAddToCartClick(productState)
                                 }}/>
 
                                 <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
                                 
-                                <AddToFavorite size={1.5} sizeUnit="rem" addToFavoriteCbk={(e)=>{}}/>
+                                <AddToFavorite size={1.5} sizeUnit="rem" addToFavoriteCbk={(e)=>{
+                                    e.stopPropagation()
+                                    handleAddToFavoriteClick(productState)
+
+                                }}/>
                                 <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
                             </div>
 
@@ -191,8 +203,8 @@ export default function Product(props: any) {
                     </Col>
                     
                 </Row>
-            </div>
-            
+            </div>):(<Spinner/>)
+            }
             {/* footer */}
             <Footer/>
             

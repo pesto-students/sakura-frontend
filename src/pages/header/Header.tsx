@@ -13,13 +13,15 @@ export const Header: React.FC = () => {
   const [cartCount, updateCartCount] = useState(0);
   const [favoriteCount, updateFavoriteCount] = useState(0);
   const cartItems =  useAppSelector((state)=>state.cart.cartItems)
+  const favoriteItems = useAppSelector((state)=>state.favorite.favoriteItems)
   const dispatch = useAppDispatch() 
 
   useEffect(() => {
     updateCartCount(cartItems.length)
+    updateFavoriteCount(favoriteItems.length)
     // TODO: call api and get items currently present in favorite and cart
     // TODO: useAppSelector to get precise state of products
-  }, [cartItems]);
+  }, [cartItems, favoriteItems]);
 
   useEffect(() => {
     dispatch(getItemFromCart({}))
@@ -39,7 +41,7 @@ export const Header: React.FC = () => {
         </div>
 
         <div id="header-favorite" className="header_container_favorite">
-          <Favorite favoriteItemCount={favoriteCount} favoriteCbk={() => {}} />
+          <Favorite favoriteItemCount={favoriteCount} favoriteCbk={() => { dispatch(push(`/favorite`))}} />
         </div>
 
         <div className="header_container_cart">

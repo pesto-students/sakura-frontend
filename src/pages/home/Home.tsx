@@ -6,7 +6,8 @@ import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
 import Footer from "../../components/Footer"
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
-import { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart } from "../cart/cart.slice"
+import { addItemToCart} from "../cart/cart.slice"
+import {addItemToFavorite} from "../favorite/favorite.slice"
 import { push } from 'connected-react-router'
 
 import "./home.scss";
@@ -73,7 +74,20 @@ export const Home = (props: any) => {
     }
 
     dispatch(addItemToCart(sendData))
-    console.log("handleAddToCartClick")
+  }
+
+  const handleAddToFavoriteClick = (data: any) => {
+
+    let sendData = {
+      ...data, 
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor
+    }
+
+    dispatch(addItemToFavorite(sendData))
   }
 
   return (
@@ -116,23 +130,9 @@ export const Home = (props: any) => {
                           <ErrorBoundary>
                             <Card
                               productDesc={product}
-                              handleClick={(productId) => {
-                                 dispatch(push(`/product/${productId}`))
-                                console.log(
-                                  "clicked on product card. " + "product id:",
-                                  productId
-                                );
-                              }}
-                              handleAddToCartClick={(productId) => {
-                                handleAddToCartClick(product)
-                              }}
-                              handleAddToFavoriteClick={(productId) => {
-                                console.log(
-                                  "clicked on add to favorite. " +
-                                    "product id:",
-                                  productId
-                                );
-                              }}
+                              handleClick={(productId) => {dispatch(push(`/product/${productId}`))}}
+                              handleAddToCartClick={(productId) => {handleAddToCartClick(product)}}
+                              handleAddToFavoriteClick={(productId) => {handleAddToFavoriteClick(product)}}
                             />
                           </ErrorBoundary>
                         </div>

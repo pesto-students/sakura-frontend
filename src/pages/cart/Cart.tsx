@@ -10,6 +10,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "../../components/Button";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import {getItemFromCart, addItemToCart, updateItemToCart, removeItemToCart} from "../cart/cart.slice"
+import {addItemToFavorite} from "../favorite/favorite.slice"
 
 
 export default function Cart(props: any) {
@@ -55,7 +56,10 @@ export default function Cart(props: any) {
                         productDesc={productDescription}
                         handleQuantityChange={(value)=>{dispatch(updateItemToCart({...item, quantity: value}))}}
                         handleAddToDeleteClick={(productId)=>{dispatch(removeItemToCart({productId}))}}
-                        handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
+                        handleAddToFavoriteClick={(productId)=>{
+                            dispatch(removeItemToCart({productId}))
+                            dispatch(addItemToFavorite(item))
+                        }}
                     />
                 </div>
             )

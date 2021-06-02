@@ -23,7 +23,7 @@ export default class Dropdown extends Component<DropdownProps, DropdownState> {
         return (
             <DropdownButton 
             id="dropdown-basic-button"
-            title= {isColor? <Color colorName={this.state.currValue}/>: this.state.currValue }
+            title= {isColor ? <Color colorName={this.state.currValue}/>: this.state.currValue }
             size="sm"  
             variant="Default" 
             bsPrefix="primary_Dropdown"
