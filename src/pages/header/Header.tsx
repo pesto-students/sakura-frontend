@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
   return (
     <div className="header_container">
       
-        <div className="header_container_logo">
+        <div className="header_container_logo" onClick={() => { dispatch(push(`/`))}} >
           <AppLogo />
         </div>
 

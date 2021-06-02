@@ -9,8 +9,9 @@ import Test from "../../pages/Test/Test"
 import { Col, Row } from "react-bootstrap";
 import Button from "../../components/Button";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
-import {getItemFromCart, addItemToCart, updateItemToCart, removeItemToCart} from "../cart/cart.slice"
+import {getItemFromCart, addItemToCart, updateItemToCart, removeItemToCart, emptyCart} from "../cart/cart.slice"
 import {addItemToFavorite} from "../favorite/favorite.slice"
+import {Modal, Form} from "react-bootstrap"
 
 
 export default function Cart(props: any) {
@@ -19,6 +20,15 @@ export default function Cart(props: any) {
         tax: 0, 
         shipping: 0
     }) 
+    // modal state and function
+    const [showModal, setShowModal] = useState(false);
+    const handleModalClose = () => setShowModal(false);
+    const handleModalShow = () => setShowModal(true);
+    const [showOrderPlacedModal, setShowOrderPlacedModal] = useState(false);
+    const handleOrderPlacedModalClose = () => setShowOrderPlacedModal(false);
+    const handleOrderPlacedModalShow = () => setShowOrderPlacedModal(true);
+    
+
     const cartItems =  useAppSelector((state)=>state.cart.cartItems)
     const dispatch = useAppDispatch() 
 
@@ -67,6 +77,67 @@ export default function Cart(props: any) {
         })   
     }
 
+    const collectInfoModal = () =>{
+        return (
+            <Modal show={showModal} onHide={handleModalClose}>
+                <Modal.Header >
+                <Modal.Title>Checkout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                            </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="text" placeholder="Enter phone no." />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Address" />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicCheckbox" >
+                            <Form.Check type="checkbox" label="Cash on Delivery" checked={true}/>
+                        </Form.Group>
+                        
+                        <Button width="8rem"  buttonText="Place Order" handleOnClick={(e)=>{
+                            e.preventDefault()
+                            handleModalClose()
+                            handleOrderPlacedModalShow()
+                            dispatch(emptyCart({}))
+                        }}/>
+                        &nbsp; &nbsp;Amount to be paid <b>{`INR ${amount.item + amount.tax + amount.shipping}`}</b>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button width="4rem"  buttonText="Close" handleOnClick={handleModalClose}/>
+                </Modal.Footer>
+            </Modal>
+        )
+    }
+
+    const orderPlacedModal = () => {
+        
+        return (
+            <Modal show={showOrderPlacedModal} onHide={handleOrderPlacedModalClose}>
+                <Modal.Header >
+                <Modal.Title>Order status</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Order placed successfully. Order Id: <b>{Date.now() + String(Math.floor(Math.random() * 10000))}</b>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button width="4rem"  buttonText="Close" handleOnClick={handleOrderPlacedModalClose}/>
+                </Modal.Footer>
+            </Modal>
+        )
+    }
+
     return (
         <div className="primary_cart">
                 {/* header */}
@@ -113,7 +184,7 @@ export default function Cart(props: any) {
                                     {`INR ${amount.item + amount.tax + amount.shipping}`}
                                     </div>
                                     <div className="primary_cart_details_checkout_payment_button">
-                                        <Button width = "100%" buttonText="Checkout" handleOnClick={(e)=>{}}/>
+                                        <Button width = "100%" buttonText="Checkout" handleOnClick={(e)=>{handleModalShow()}}/>
                                     </div>
                                     
                             </div>
@@ -123,6 +194,8 @@ export default function Cart(props: any) {
 
                 {/* Footer */}
                 <Footer/>
+                {collectInfoModal()}
+                {orderPlacedModal()}
             </div>
     )
 
