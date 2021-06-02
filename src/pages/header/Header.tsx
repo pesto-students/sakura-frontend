@@ -56,7 +56,6 @@ export const Header: React.FC = () => {
 
   return (
     <div className="header_container">
-      <Col>
         <div
           className="header_container_logo"
           onClick={() => {
@@ -65,8 +64,6 @@ export const Header: React.FC = () => {
         >
           <AppLogo />
         </div>
-      </Col>
-      <Col xs={8}>
         <div className="header-content">
           <SearchBar
             searchCbk={(str: string) => {
@@ -95,7 +92,7 @@ export const Header: React.FC = () => {
             }}
           />
         </div>
-      </Col>
+        
     </div>
   );
 };
