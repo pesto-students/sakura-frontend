@@ -4,6 +4,7 @@
 .slider-container {
   position: relative;
   border: 2px solid black;
+  padding: 1rem 0rem;
 
   & > div:nth-child(1) {
     position: absolute;

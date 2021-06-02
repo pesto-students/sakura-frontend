@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Border } from 'react-bootstrap-icons'
 import "./ProductDescription.scss"
 import Star from "../Star"
+import Color from "../Color"
 
 export default class ProductDescription extends React.Component<productDescription> {
 
@@ -41,7 +42,7 @@ export default class ProductDescription extends React.Component<productDescripti
                         <div className="primary_productDescription_brandName">{brandName}</div>
                         <div className="primary_productDescription_productName">{productName}</div>
                         <div className="primary_productDescription_productColor">
-                            {productColor && <Fragment>Color: <div className="primary_productColor" style={{backgroundColor: productColor}}> </div></Fragment>}
+                            {productColor && <Fragment>Color: <Color colorName={productColor}/></Fragment>}
                             {productColor && <Fragment><div style={{paddingLeft:"1rem", display:"inline-block"}}></div></Fragment>}
                             {productSize && <div className="primary_productDescription_productSize">Size: {productSize}</div>}
                         </div>
