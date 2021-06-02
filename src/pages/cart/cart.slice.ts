@@ -35,9 +35,11 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            cartItems = cartItems.filter((item: any)=> item.productId !== action.payload.productId)
-            localStorage.setItem("cartItems", JSON.stringify(cartItems));
-            state.cartItems = cartItems
+            let newCartItems = cartItems.filter((item: any)=> item.productId !== action.payload.productId)
+            console.log(newCartItems)
+            localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+
+            state.cartItems = newCartItems
         },
 
         updateItemToCart: (state, action: PayloadAction<any>) => {

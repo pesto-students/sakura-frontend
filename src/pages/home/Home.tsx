@@ -6,6 +6,7 @@ import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
 import Footer from "../../components/Footer"
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
+import { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart } from "../cart/cart.slice"
 import { push } from 'connected-react-router'
 
 import "./home.scss";
@@ -40,7 +41,7 @@ export const Home = (props: any) => {
           productColor: product.color,
           productSize: product.size,
           originalPrice: `INR ${inventory.retailPrice}`,
-          discountedPrice: `INR ${discountedPrice}`,
+          discountedPrice: `INR ${inventory.costPrice}`,
           rating: parseInt(productClass.rating),
           productId: ProductId,
           discountPercentage: parseInt(discount.discountRate),
@@ -59,6 +60,21 @@ export const Home = (props: any) => {
     dispatch(getExclusivePromo({}));
     dispatch(getProductHotDeals({}));
   }, []);
+
+  const handleAddToCartClick = (data: any) => {
+
+    let sendData = {
+      ...data, 
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor
+    }
+
+    dispatch(addItemToCart(sendData))
+    console.log("handleAddToCartClick")
+  }
 
   return (
     <div>
@@ -108,10 +124,7 @@ export const Home = (props: any) => {
                                 );
                               }}
                               handleAddToCartClick={(productId) => {
-                                console.log(
-                                  "clicked on add to cart. " + "product id:",
-                                  productId
-                                );
+                                handleAddToCartClick(product)
                               }}
                               handleAddToFavoriteClick={(productId) => {
                                 console.log(

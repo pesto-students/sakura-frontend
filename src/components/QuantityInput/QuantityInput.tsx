@@ -14,18 +14,20 @@ export default class QuantityInput extends React.Component<QuantityInputProps, Q
         };
       }
       
-      componentDidUpdate (prevState: any){
-        if(this.state.currValue != prevState.quantity){
-          this.props.handleChange(this.state.currValue)
-        }
-      }
+      // componentDidUpdate (prevState: any){
+      //   if(this.state.currValue != prevState.quantity){
+      //     this.props.handleChange(this.state.currValue)
+      //   }
+      // }
     
       handleDecrease = (e: any) => {
         this.state.currValue > 0 && this.setState({ currValue: this.state.currValue - 1 });
+        this.state.currValue > 0  && this.props.handleChange(this.state.currValue -1)
       }
       handleIncrease = (e: any) => {
          
          this.setState({ currValue: this.state.currValue + 1 });
+         this.props.handleChange(this.state.currValue + 1)
          console.log(this.state.currValue)
         
       }
@@ -38,7 +40,7 @@ export default class QuantityInput extends React.Component<QuantityInputProps, Q
                     <div className="primary_QuantityInput_decrease" onClick={this.handleDecrease}>
                         <PatchMinus className="primary_QuantityInput_decrease_icon"/>
                     </div>
-                    <div className="primary_QuantityInput_value">{this.state.currValue}</div>
+                    <div className="primary_QuantityInput_value">{this.props.quantity}</div>
                      
                     <div className="primary_QuantityInput_increase" onClick={this.handleIncrease}>
                         <PatchPlus className="primary_QuantityInput_increase_icon"/>
