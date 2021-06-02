@@ -1,8 +1,10 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Col, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import {getProductDetailReducer} from "./product.slice"
+import { addItemToCart, removeItemToCart, updateItemToCart, getItemFromCart } from "../cart/cart.slice"
 import { createMatchSelector } from "connected-react-router";
+
 import "./product.scss"
 
 import Footer from "../../components/Footer"
@@ -27,12 +29,44 @@ export default function Product(props: any) {
     const matchSelector = createMatchSelector("/product/:productId");
     const match: any =  useAppSelector((state)=>matchSelector(state))
 
+   
+
+    const [productState, setProductState] = useState({
+        brandName: productDetails[0]?.productClass.brandName,
+        productName: productDetails[0]?.name,
+        color: productDetails[0]?.color,
+        size: productDetails[0]?.size,
+        productDesc: productDetails[0]?.description,
+        rating: parseInt(productDetails[0]?.productClass.rating),
+        originalPrice: productDetails[0]?.inventory.retailPrice,
+        discountedPrice:productDetails[0]?.inventory.costPrice,
+        productId: productDetails[0]?.id,
+        quantity: 1,
+        productImage: ""
+    })
+
+    useEffect(() => {
+        setProductState({
+            brandName: productDetails[0]?.productClass.brandName,
+            productName: productDetails[0]?.name,
+            color: productDetails[0]?.color,
+            size: productDetails[0]?.size,
+            productDesc: productDetails[0]?.description,
+            rating: parseInt(productDetails[0]?.productClass.rating),
+            originalPrice: productDetails[0]?.inventory.retailPrice,
+            discountedPrice:productDetails[0]?.inventory.costPrice,
+            productId: productDetails[0]?.id,
+            quantity: 1,
+            productImage: productDetails[0]?.productAssets[0].publicAsset.uri
+        })
+      }, [productDetails])
+
     // dispatch action
     useEffect(() => {
             dispatch(getProductDetailReducer({productId: match.params.productId }))
       }, []);
 
-     // get image data from productDetails 
+    // get image data from productDetails 
     const carousalImages = productDetails[0]?.productAssets.map((item: any)=>item.publicAsset.uri);
     
     // get product defailt 
@@ -47,6 +81,12 @@ export default function Product(props: any) {
         discountedPrice:`INR ${productDetails[0]?.inventory.costPrice}`,
         productId: productDetails[0]?.id,
     }
+
+    const handleAddToCartClick = (data: any) => {
+        dispatch(addItemToCart(data))
+        console.log("handleAddToCartClick")
+    }
+
     const renderRating = (rating: number) => {
         return  [1,1,1,1,1].map((item, index)=> {
             return (
@@ -126,12 +166,15 @@ export default function Product(props: any) {
 
                             <div className="primary_ProductDetails_desc_quantity">
                                 <div style={{display:"inline-block", alignSelf:"center"}}>Qty:&nbsp;&nbsp;</div> 
-                                <QuantityInput handleChange={(value)=>console.log("quantity value:"+value)} quantity={1}/>
+                                <QuantityInput handleChange={(value)=>setProductState((oldvalue)=>({...oldvalue,quantity:value}))} quantity={productState.quantity}/>
                             </div>
 
                              {/* add addToCart and addToBuy bottom right on image*/}
                             <div className="primary_ProductDetails_desc_group2">
-                                <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={(e)=>{}}/>
+                                <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={(e)=>{
+                                        e.stopPropagation()
+                                            handleAddToCartClick(productState)
+                                }}/>
 
                                 <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
                                 

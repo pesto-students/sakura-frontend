@@ -23,13 +23,13 @@ const Test = () => {
        
         <div>
             {/* <QuantityInput handleChange={(value)=>console.log("quantity value:"+value)}/> */}
-            <Card2
+            {/* <Card2
                 showAddtoFavoriteButton={true}
                 productDesc={productDes}
                 handleAddToDeleteClick={(productId)=>{console.log("clicked on product card. "+"product id:", productId)}}
                 handleAddToCartClick={(productId)=>{console.log("clicked on add to cart. "+ "product id:", productId)}}
                 handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
-                />
+                /> */}
         </div>
     )
 }

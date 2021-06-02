@@ -40,7 +40,7 @@ export default class Card extends React.Component<CardProps> {
                     <div className="primary_card_productHeader_bottomRight">
                         <AddTocart size={1.5} sizeUnit="rem" addToCartCbk={(e)=>{
                             e.stopPropagation()
-                            return this.props.handleAddToCartClick(productDesc.productId)}}/>
+                            this.props.handleAddToCartClick(productDesc.productId)}}/>
 
                         <div style={{marginLeft:"0.5rem", display:"inline-block"}}></div>
                         

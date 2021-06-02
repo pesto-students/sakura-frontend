@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {InputGroup} from "react-bootstrap"
-import {PatchMinus, PatchPlus} from "react-bootstrap-icons"
+import {PatchMinus, PatchPlus, ThermometerSun} from "react-bootstrap-icons"
 import ContentEditable from 'react-contenteditable'
 import "./QuantityInput.scss"
 
@@ -14,15 +14,20 @@ export default class QuantityInput extends React.Component<QuantityInputProps, Q
         };
       }
       
-      componentDidUpdate() {
-        this.props.handleChange(this.state.currValue)
+      componentDidUpdate (prevState: any){
+        if(this.state.currValue != prevState.quantity){
+          this.props.handleChange(this.state.currValue)
+        }
       }
     
       handleDecrease = (e: any) => {
         this.state.currValue > 0 && this.setState({ currValue: this.state.currValue - 1 });
       }
       handleIncrease = (e: any) => {
+         
          this.setState({ currValue: this.state.currValue + 1 });
+         console.log(this.state.currValue)
+        
       }
     
     render() {

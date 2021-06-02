@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import Carousel from "../../components/Carousel";
 import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
+import Footer from "../../components/Footer"
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
 import { push } from 'connected-react-router'
 
@@ -92,7 +93,7 @@ export const Home = (props: any) => {
                   </div>
                   {/* <ErrorBoundary> */}
                   <ProductSlider
-                    sliderHeight="30rem"
+                    sliderHeight="29rem"
                     content={deal.products.map(
                       (product: any, dealIndx: number) => (
                         <div key={`${dealIndx}-card`}>
@@ -132,6 +133,7 @@ export const Home = (props: any) => {
           </div>
         </Col>
       </Row>
+      <Footer/>
     </div>
   );
 };

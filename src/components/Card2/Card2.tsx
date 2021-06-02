@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import "./Card2.scss"
 import productImage from "../../assests/images/productImages/photo-1523275335684-37898b6baf30.jpg"
 import defaultImg from "../../assests/images/default/defaultimg.jpg"
@@ -7,6 +7,7 @@ import AddToDelete from "../AddToDelete"
 import AddToFavorite from "../AddToFavorite"
 import {Img} from 'react-image'
 import QuantityInput from "../QuantityInput"
+import Color from "../Color"
 
 
 export default class Card2 extends React.Component<Card2Props> {
@@ -21,13 +22,13 @@ export default class Card2 extends React.Component<Card2Props> {
         const {showAddtoCartButton=false, showAddtoFavoriteButton=false} = this.props
         const {handleAddToFavoriteClick, handleAddToDeleteClick, handleAddToCartClick} = this.props
         return (
-            <div className= "container_primary_card2">
-                <div className="primary_card2">
-                    <div className="primary_card2_productHeader">
+                <div className="primary_card2" style={{height:this.props.height}}>
+                    <div className="primary_card2_productHeader" style={{height:this.props.height}}>
                         {/* add product image */}
                             <Img
-                            src={productImage}
+                            src={productDesc.productImage}
                             className="primary_card2_productHeader_img"
+                            style={{height:this.props.height}}
                             unloader={<Img src={defaultImg} className="primary_card2_productHeader_img"/>}
                             />
                     </div>
@@ -39,10 +40,10 @@ export default class Card2 extends React.Component<Card2Props> {
                                 {productDesc.productName}
                             </div>
                             <div className="primary_card2_productDesc_quantity">
-                                <QuantityInput handleChange={(value)=>console.log(value)} quantity={1}/>
+                                <QuantityInput handleChange={(value)=>console.log(value)} quantity={productDesc.quantity}/>
                             </div>
                             <div className="primary_card2_productDesc_color">
-                                Color:&nbsp;&nbsp;{productDesc.productColor}
+                            {productDesc.productColor && <Fragment>Color:&nbsp;&nbsp; <Color colorName={productDesc.productColor}/></Fragment>}
                             </div>
                             <div className="primary_card2_productDesc_size">
                                 Size:&nbsp;&nbsp;{productDesc.productSize}
@@ -74,7 +75,7 @@ export default class Card2 extends React.Component<Card2Props> {
 
                     </div>
                 </div>
-            </div>
+
         )
     }
     
@@ -121,4 +122,12 @@ export type Card2Props = {
      * showAddtoFavoriteButton -  
      */
      showAddtoFavoriteButton?: Boolean
+    // /**
+    //  * width: 
+    //  */
+    // width: string 
+    /**
+     * height 
+     */
+    height: string 
 }

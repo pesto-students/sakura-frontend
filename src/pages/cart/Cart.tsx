@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect,useState } from 'react'
 import "./Cart.scss"
 
 import Footer from "../../components/Footer"
@@ -7,25 +7,62 @@ import {ErrorBoundary} from "../../components/ErrorBoundary/ErrorBoundary"
 import Card2 from "../../components/Card2"
 import Test from "../../pages/Test/Test"
 import { Col, Row } from "react-bootstrap";
-import Button from "../../components/Button"
+import Button from "../../components/Button";
+import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
+import {getItemFromCart, addItemToCart, updateItemToCart, removeItemToCart} from "../cart/cart.slice"
 
 
-export default class cart extends Component {
+export default function Cart(props: any) {
+    const [amount, setAmount] = useState({
+        item: 0,
+        tax: 0, 
+        shipping: 0
+    }) 
+    const cartItems =  useAppSelector((state)=>state.cart.cartItems)
+    const dispatch = useAppDispatch() 
 
-    populateCartItems = () => {
-        return  [1,1,1,1,1].map((item, index)=> {
+    useEffect(() => {
+        dispatch(getItemFromCart({}))
+        // TODO: call api and get items currently present in favorite and cart
+        // TODO: useAppSelector to get precise state of products
+    }, []);
+
+    useEffect(()=>{
+        let itemTotal: number = cartItems.reduce((a: any, b: any) => parseInt(a) + (parseInt(b["discountedPrice"])*parseInt(b["quantity"]) || 0), 0)
+        setAmount((oldvalue)=>({...oldvalue,item:itemTotal, shipping: itemTotal/100,tax:((itemTotal*18)/100) }))
+
+    }, [cartItems])
+
+    const populateCartItems = () => {
+        console.log(cartItems)
+        return  cartItems.map((item: any, index: number)=> {
             return (
                 <div style={{paddingBottom:"1rem", display:'inline-block'}} key={index}>
-                     <Test/>
+                      <Card2
+                        height= "15rem"
+                        showAddtoFavoriteButton={true}
+                        productDesc={{
+                            "brandName": item.brandName,
+                            "productName": item.productName,
+                            "productColor": item.color,
+                            "productSize":item.size,
+                            "originalPrice": `INR ${item.originalPrice}`,
+                            "discountedPrice": `INR ${item.discountedPrice}`,
+                            "productImage": item.productImage,
+                            "productId": item.productId,
+                            "quantity": item.quantity
+                        }}
+                        handleAddToDeleteClick={(productId)=>{console.log("clicked on product card. "+"product id:", productId)}}
+                        handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
+                    />
                 </div>
             )
         
         })   
     }
 
-    render() {
-        return (
-            <div className="primary_cart">
+    return (
+        <div className="primary_cart">
                 {/* header */}
                 <Header/>
                 {/* page heading */}
@@ -35,7 +72,7 @@ export default class cart extends Component {
                 <Row>    
                     <Col sm={8}>
                         <div className="primary_cart_details_items" >
-                            {this.populateCartItems()}
+                            {populateCartItems()}
                         </div>
                     </Col>
                     <Col sm={4}>
@@ -47,26 +84,26 @@ export default class cart extends Component {
                                     Item  
                                 </div>
                                 <div className="primary_cart_details_checkout_item_amount_total">
-                                    50$
+                                    {`INR ${amount.item}`}
                                 </div>
                                 <div className="primary_cart_details_checkout_shipping_amount_heading">
                                     Shipping  
                                 </div>
                                 <div className="primary_cart_details_checkout_shipping_amount_total">
-                                    10$
+                                {`INR ${amount.shipping}`}
                                 </div>
                                 <div className="primary_cart_details_checkout_tax_amount_heading">
                                     Tax  
                                 </div>
                                 <div className="primary_cart_details_checkout_tax_amount_total">
-                                    40$
+                                {`INR ${amount.tax}`}
                                 </div>
                                 <hr className="primary_cart_details_checkout_divider"/>
                                 <div className="primary_cart_details_checkout_total_amount_heading">
                                     Total amount 
                                 </div>
                                 <div className="primary_cart_details_checkout_total_amount_total">
-                                    40$
+                                {`INR ${amount.item + amount.tax + amount.shipping}`}
                                 </div>
                                 <div className="primary_cart_details_checkout_payment_button">
                                     <Button width = "100%" buttonText="Checkout" handleOnClick={(e)=>{}}/>
@@ -80,7 +117,7 @@ export default class cart extends Component {
                 {/* Footer */}
                 <Footer/>
             </div>
-        )
-    }
+    )
+
 }
 
