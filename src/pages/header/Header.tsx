@@ -28,30 +28,26 @@ export const Header: React.FC = () => {
   }, []);
 
   return (
-    <Row className="header-container">
-      <Col xs={2}>
-        <div className="header-content">
+    <div className="header_container">
+      
+        <div className="header_container_logo">
           <AppLogo />
         </div>
-      </Col>
-      <Col xs={8}>
-        <div className="header-content">
+
+        <div className="header_container_searchbar">
           <SearchBar searchCbk={() => {}} resultClickFn={() => {}}></SearchBar>
         </div>
-      </Col>
-      <Col xs={1}>
-        <div id="header-favorite" className="header-content">
+
+        <div id="header-favorite" className="header_container_favorite">
           <Favorite favoriteItemCount={favoriteCount} favoriteCbk={() => {}} />
         </div>
-      </Col>
-      <Col xs={1}>
-        <div className="header-content">
+
+        <div className="header_container_cart">
           {/* Write callback to route to next page upon change */}
           <Cart cartItemCount={cartCount} cartCbk={() => {
              dispatch(push(`/cart`))
           }} />
         </div>
-      </Col>
-    </Row>
+    </div>
   );
 };

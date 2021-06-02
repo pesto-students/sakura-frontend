@@ -35,7 +35,7 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            cartItems.filter((item: any)=> item.productId !== action.payload.productId)
+            cartItems = cartItems.filter((item: any)=> item.productId !== action.payload.productId)
             localStorage.setItem("cartItems", JSON.stringify(cartItems));
             state.cartItems = cartItems
         },
@@ -48,7 +48,6 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            console.log(action.payload)
             cartItems = cartItems.map((item: any)=> {
                 if(item.productId !== action.payload.productId)
                 {

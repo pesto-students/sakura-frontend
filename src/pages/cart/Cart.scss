@@ -1,6 +1,7 @@
 @import "../../sassStyles/globals";
 
 .primary_cart{
+    width: 100%;
     &_heading{
         margin: 2rem auto;
         font-size: 2rem;
@@ -91,6 +92,12 @@
                 grid-column: 1/4;
                 padding-bottom: 2rem;
             }
+        }
+
+        &_empty{
+        font-size: 1.5rem;
+        text-align: center;
+        color:$secondary-color;
         }
     }
     

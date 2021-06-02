@@ -46,7 +46,6 @@ export default function Cart(props: any) {
                 "productId": item.productId,
                 "quantity": item.quantity
             }
-            console.log(item)
             return (
                 <div style={{paddingBottom:"1rem", display:'inline-block', width:"100%"}} key={index}>
                         
@@ -55,7 +54,7 @@ export default function Cart(props: any) {
                         showAddtoFavoriteButton={true}
                         productDesc={productDescription}
                         handleQuantityChange={(value)=>{dispatch(updateItemToCart({...item, quantity: value}))}}
-                        handleAddToDeleteClick={(productId)=>{console.log("clicked on product card. "+"product id:", productId)}}
+                        handleAddToDeleteClick={(productId)=>{dispatch(removeItemToCart({productId}))}}
                         handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
                     />
                 </div>
@@ -72,49 +71,50 @@ export default function Cart(props: any) {
                 <div className="primary_cart_heading">Shopping Cart</div>
                 {/* cart details container */}
                 <div className="primary_cart_details">
-                <Row>    
-                    <Col sm={8}>
-                        <div className="primary_cart_details_items" >
-                            {populateCartItems()}
-                        </div>
-                    </Col>
-                    <Col sm={4}>
-                        <div className="primary_cart_details_checkout">
-                                <div className="primary_cart_details_checkout_heading">
-                                    The total amount of
-                                </div>
-                                <div className="primary_cart_details_checkout_item_amount_heading">
-                                    Item  
-                                </div>
-                                <div className="primary_cart_details_checkout_item_amount_total">
-                                    {`INR ${amount.item}`}
-                                </div>
-                                <div className="primary_cart_details_checkout_shipping_amount_heading">
-                                    Shipping  
-                                </div>
-                                <div className="primary_cart_details_checkout_shipping_amount_total">
-                                {`INR ${amount.shipping}`}
-                                </div>
-                                <div className="primary_cart_details_checkout_tax_amount_heading">
-                                    Tax  
-                                </div>
-                                <div className="primary_cart_details_checkout_tax_amount_total">
-                                {`INR ${amount.tax}`}
-                                </div>
-                                <hr className="primary_cart_details_checkout_divider"/>
-                                <div className="primary_cart_details_checkout_total_amount_heading">
-                                    Total amount 
-                                </div>
-                                <div className="primary_cart_details_checkout_total_amount_total">
-                                {`INR ${amount.item + amount.tax + amount.shipping}`}
-                                </div>
-                                <div className="primary_cart_details_checkout_payment_button">
-                                    <Button width = "100%" buttonText="Checkout" handleOnClick={(e)=>{}}/>
-                                </div>
-                                
-                        </div>
-                    </Col>
-                </Row>
+                    {cartItems.length > 0 ?
+                    (<Row>    
+                        <Col sm={8}>
+                            <div className="primary_cart_details_items" >
+                                {populateCartItems()}
+                            </div>
+                        </Col>
+                        <Col sm={4}>
+                            <div className="primary_cart_details_checkout">
+                                    <div className="primary_cart_details_checkout_heading">
+                                        The total amount of
+                                    </div>
+                                    <div className="primary_cart_details_checkout_item_amount_heading">
+                                        Item  
+                                    </div>
+                                    <div className="primary_cart_details_checkout_item_amount_total">
+                                        {`INR ${amount.item}`}
+                                    </div>
+                                    <div className="primary_cart_details_checkout_shipping_amount_heading">
+                                        Shipping  
+                                    </div>
+                                    <div className="primary_cart_details_checkout_shipping_amount_total">
+                                    {`INR ${amount.shipping}`}
+                                    </div>
+                                    <div className="primary_cart_details_checkout_tax_amount_heading">
+                                        Tax  
+                                    </div>
+                                    <div className="primary_cart_details_checkout_tax_amount_total">
+                                    {`INR ${amount.tax}`}
+                                    </div>
+                                    <hr className="primary_cart_details_checkout_divider"/>
+                                    <div className="primary_cart_details_checkout_total_amount_heading">
+                                        Total amount 
+                                    </div>
+                                    <div className="primary_cart_details_checkout_total_amount_total">
+                                    {`INR ${amount.item + amount.tax + amount.shipping}`}
+                                    </div>
+                                    <div className="primary_cart_details_checkout_payment_button">
+                                        <Button width = "100%" buttonText="Checkout" handleOnClick={(e)=>{}}/>
+                                    </div>
+                                    
+                            </div>
+                        </Col>
+                    </Row>): (<div className="primary_cart_details_empty">Your Cart is empty </div>)}
                 </div>
 
                 {/* Footer */}
