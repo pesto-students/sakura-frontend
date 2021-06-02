@@ -3,8 +3,6 @@ import { ActionsObservable, combineEpics } from 'redux-observable';
 import { map, filter, mergeMap } from 'rxjs/operators';
 
 
-
-
 // load cart initial values 
 
 const cartSlice = createSlice({
@@ -50,7 +48,8 @@ const cartSlice = createSlice({
             }else{
                  cartItems  = [] 
             }
-            cartItems.map((item: any)=> {
+            console.log(action.payload)
+            cartItems = cartItems.map((item: any)=> {
                 if(item.productId !== action.payload.productId)
                 {
                     return item

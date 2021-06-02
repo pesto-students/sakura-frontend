@@ -29,29 +29,32 @@ export default function Cart(props: any) {
 
     useEffect(()=>{
         let itemTotal: number = cartItems.reduce((a: any, b: any) => parseInt(a) + (parseInt(b["discountedPrice"])*parseInt(b["quantity"]) || 0), 0)
-        setAmount((oldvalue)=>({...oldvalue,item:itemTotal, shipping: itemTotal/100,tax:((itemTotal*18)/100) }))
+        setAmount((oldvalue)=>({...oldvalue,item:Math.floor(itemTotal), shipping: Math.floor(itemTotal/100),tax:Math.floor((itemTotal*18)/100) }))
 
     }, [cartItems])
 
     const populateCartItems = () => {
-        console.log(cartItems)
         return  cartItems.map((item: any, index: number)=> {
+            let productDescription = {
+                "brandName": item.brandName,
+                "productName": item.productName,
+                "productColor": item.color,
+                "productSize":item.size,
+                "originalPrice": `INR ${item.originalPrice}`,
+                "discountedPrice": `INR ${item.discountedPrice}`,
+                "productImage": item.productImage,
+                "productId": item.productId,
+                "quantity": item.quantity
+            }
+            console.log(item)
             return (
-                <div style={{paddingBottom:"1rem", display:'inline-block'}} key={index}>
+                <div style={{paddingBottom:"1rem", display:'inline-block', width:"100%"}} key={index}>
+                        
                       <Card2
                         height= "15rem"
                         showAddtoFavoriteButton={true}
-                        productDesc={{
-                            "brandName": item.brandName,
-                            "productName": item.productName,
-                            "productColor": item.color,
-                            "productSize":item.size,
-                            "originalPrice": `INR ${item.originalPrice}`,
-                            "discountedPrice": `INR ${item.discountedPrice}`,
-                            "productImage": item.productImage,
-                            "productId": item.productId,
-                            "quantity": item.quantity
-                        }}
+                        productDesc={productDescription}
+                        handleQuantityChange={(value)=>{dispatch(updateItemToCart({...item, quantity: value}))}}
                         handleAddToDeleteClick={(productId)=>{console.log("clicked on product card. "+"product id:", productId)}}
                         handleAddToFavoriteClick={(productId)=>{console.log("clicked on add to favorite. "+ "product id:", productId)}}
                     />

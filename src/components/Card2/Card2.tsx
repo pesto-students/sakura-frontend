@@ -20,7 +20,7 @@ export default class Card2 extends React.Component<Card2Props> {
     render () {
         const productDesc: ProductDescriptionType = this.props.productDesc;
         const {showAddtoCartButton=false, showAddtoFavoriteButton=false} = this.props
-        const {handleAddToFavoriteClick, handleAddToDeleteClick, handleAddToCartClick} = this.props
+        const {handleAddToFavoriteClick, handleAddToDeleteClick, handleAddToCartClick, handleQuantityChange} = this.props
         return (
                 <div className="primary_card2" style={{height:this.props.height}}>
                     <div className="primary_card2_productHeader" style={{height:this.props.height}}>
@@ -40,7 +40,7 @@ export default class Card2 extends React.Component<Card2Props> {
                                 {productDesc.productName}
                             </div>
                             <div className="primary_card2_productDesc_quantity">
-                                <QuantityInput handleChange={(value)=>console.log(value)} quantity={productDesc.quantity}/>
+                                <QuantityInput handleChange={(value)=>handleQuantityChange(value)} quantity={productDesc.quantity}/>
                             </div>
                             <div className="primary_card2_productDesc_color">
                             {productDesc.productColor && <Fragment>Color:&nbsp;&nbsp; <Color colorName={productDesc.productColor}/></Fragment>}
@@ -70,7 +70,7 @@ export default class Card2 extends React.Component<Card2Props> {
                                 </div>}
                             </div>
                             <div className="primary_card2_productDesc_price">
-                                Price:&nbsp;&nbsp;{productDesc.originalPrice}
+                                Price:&nbsp;&nbsp;{productDesc.discountedPrice}
                             </div>
 
                     </div>
@@ -122,11 +122,11 @@ export type Card2Props = {
      * showAddtoFavoriteButton -  
      */
      showAddtoFavoriteButton?: Boolean
-    // /**
-    //  * width: 
-    //  */
-    // width: string 
     /**
+     * handleQuantityChange 
+     */
+    handleQuantityChange: (value: number)=>void 
+    /*
      * height 
      */
     height: string 
