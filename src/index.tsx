@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-import store from './appStore/store';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
+import store from "./appStore/store";
+import { Provider } from "react-redux";
 
-
-if(process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   // removes all console statements from prod
   console.log = function () {};
 }
@@ -19,7 +18,7 @@ ReactDOM.render(
       <App />
     </React.StrictMode>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,4 +1,3 @@
-import { merge } from "object-mapper";
 import { getHttp } from "../../shared/services/http.service";
 import { getExclusivePromoUrl, getHotDealsUrl } from "../../shared/consts";
 

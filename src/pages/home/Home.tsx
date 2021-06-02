@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import Carousel from "../../components/Carousel";
 import NamedSeparator from "../../components/NamedSeparator";
 import Header from "../header";
-import Footer from "../../components/Footer"
+import Footer from "../../components/Footer";
 import { getExclusivePromo, getProductHotDeals } from "./home.slice";
-import { push } from 'connected-react-router'
+import { addItemToCart } from "../cart/cart.slice";
+import { addItemToFavorite } from "../favorite/favorite.slice";
+import { push } from "connected-react-router";
 
 import "./home.scss";
 import ProductSlider from "../../components/ProductSlider";
@@ -25,9 +27,9 @@ export const Home = (props: any) => {
   let topDealsCard = hotProductDeals
     .map((deal: any) => {
       if (!deal.eventCollection) return null;
-        const products = deal.eventCollection.map((collection: any) => {
+      const products = deal.eventCollection.map((collection: any) => {
         const product = collection.product;
-        const ProductId = collection.productId
+        const ProductId = collection.productId;
         const discount = collection.discount;
         const inventory = product.inventory;
         const productClass = product.productClass;
@@ -40,7 +42,7 @@ export const Home = (props: any) => {
           productColor: product.color,
           productSize: product.size,
           originalPrice: `INR ${inventory.retailPrice}`,
-          discountedPrice: `INR ${discountedPrice}`,
+          discountedPrice: `INR ${inventory.costPrice}`,
           rating: parseInt(productClass.rating),
           productId: ProductId,
           discountPercentage: parseInt(discount.discountRate),
@@ -60,9 +62,39 @@ export const Home = (props: any) => {
     dispatch(getProductHotDeals({}));
   }, []);
 
+  const handleAddToCartClick = (data: any) => {
+    let sendData = {
+      ...data,
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor,
+    };
+
+    dispatch(addItemToCart(sendData));
+  };
+
+  const handleAddToFavoriteClick = (data: any) => {
+    let sendData = {
+      ...data,
+      originalPrice: data.originalPrice.replace("INR ", ""),
+      discountedPrice: data.discountedPrice.replace("INR ", ""),
+      quantity: 1,
+      size: data.productSize,
+      color: data.productColor,
+    };
+
+    dispatch(addItemToFavorite(sendData));
+  };
+
   return (
     <div>
-      <Header />
+      <Row>
+        <Col>
+          <Header />
+        </Col>
+      </Row>
       <Row>
         {/* <Col md={0}></Col> */}
         <Col>
@@ -101,24 +133,13 @@ export const Home = (props: any) => {
                             <Card
                               productDesc={product}
                               handleClick={(productId) => {
-                                 dispatch(push(`/product/${productId}`))
-                                console.log(
-                                  "clicked on product card. " + "product id:",
-                                  productId
-                                );
+                                dispatch(push(`/product/${productId}`));
                               }}
                               handleAddToCartClick={(productId) => {
-                                console.log(
-                                  "clicked on add to cart. " + "product id:",
-                                  productId
-                                );
+                                handleAddToCartClick(product);
                               }}
                               handleAddToFavoriteClick={(productId) => {
-                                console.log(
-                                  "clicked on add to favorite. " +
-                                    "product id:",
-                                  productId
-                                );
+                                handleAddToFavoriteClick(product);
                               }}
                             />
                           </ErrorBoundary>
@@ -133,7 +154,7 @@ export const Home = (props: any) => {
           </div>
         </Col>
       </Row>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
