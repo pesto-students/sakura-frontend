@@ -1,0 +1,77 @@
+@import "../../sassStyles/globals";
+
+.primary_ProductDetails{
+    padding: 3rem 5rem;
+    position: relative;
+
+    &_carousel {
+        width: 100%;
+    }
+
+    &_desc {
+        min-height: 25rem;
+        display: grid;
+        grid-template-columns: 1;
+        grid-template-rows: auto;
+
+        &_brandName{
+            color: $secondary-color;
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+
+        &_productName{
+            color: $primary-color;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        &_desc{
+            padding: 0.5rem 0;
+            width: 80%;
+            font-size: 0.8rem;
+        }
+
+        &_price{
+            display: inline-block;
+            &_productOrignalPrice{
+                display: inline-block;
+                text-decoration: line-through;
+                font-weight: 300;
+                padding-right: 1rem;
+            }
+            &_productDiscountedPrice{
+                display: inline-block;
+                font-weight: 500;
+                color: $primary-color;
+            }
+        }
+        &_group1{
+            display: inline-block;
+            &_color {
+                display: inline-block;
+                padding-top: 0.5rem;
+                padding-right: 1rem;
+            }
+            &_size{
+                display: inline-block;
+                padding-top: 0.5rem;
+                padding-right: 1rem;
+            }
+        }
+        &_quantity{
+            display: inline-block;
+            padding-top: 0.5rem;
+        }
+        &_group2{
+            display: inline-block;
+            padding-top: 0.5rem;
+        }
+
+        &_bottom{
+            position: absolute;
+            bottom: 3rem;
+        }
+    }
+
+}

@@ -5,6 +5,7 @@ export const API_URL = process.env["REACT_APP_API_URL"];
 // export const getTopCategoriesUrl = () => `${API_URL}/category/top`;
 // export const getTopProductsByCategoryUrl = (categoryId: number) => `${API_URL}/category/${categoryId}/product/top`;
 
-export const getExclusivePromoUrl = () => `${API_URL}/promo/exclusive`
-export const getHotDealsUrl = () => `${API_URL}/promo/hot-deal`
+export const getExclusivePromoUrl = () => `${API_URL}/api/promo/exclusive`
+export const getHotDealsUrl = () => `${API_URL}/api/promo/hot-deal`
+export const getProductDetailUrl = (productId: string) => `${API_URL}/api/product/${productId}`
 

@@ -1,0 +1,2 @@
+```js
+<Color colorName="yellow"/>

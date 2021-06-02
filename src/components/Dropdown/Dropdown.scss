@@ -1,0 +1,26 @@
+@import "../../sassStyles/globals";
+
+.primary_Dropdown{
+    background-color: $color-white;
+    color: $primary-color;
+    z-index: 1000;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    padding: 0.3rem 0.9rem;
+    display: inline-block;
+    &_item {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 0.2rem 0.5rem;
+        &:hover{
+            background-color: $primary-color;
+            color: $color-white;
+        }
+        &:active{
+            background-color: $primary-color;
+            color: $color-white;
+        }
+    }
+}
+
