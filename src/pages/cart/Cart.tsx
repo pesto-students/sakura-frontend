@@ -1,4 +1,5 @@
-import React, { Component, useEffect,useState } from 'react'
+import React, { Component, Fragment, useEffect,useState } from 'react'
+import {push} from "connected-react-router"
 import "./Cart.scss"
 
 import Footer from "../../components/Footer"
@@ -165,13 +166,13 @@ export default function Cart(props: any) {
                                         {`INR ${amount.item}`}
                                     </div>
                                     <div className="primary_cart_details_checkout_shipping_amount_heading">
-                                        Shipping  
+                                        Shipping(10%)  
                                     </div>
                                     <div className="primary_cart_details_checkout_shipping_amount_total">
                                     {`INR ${amount.shipping}`}
                                     </div>
                                     <div className="primary_cart_details_checkout_tax_amount_heading">
-                                        Tax  
+                                        Tax(18%) 
                                     </div>
                                     <div className="primary_cart_details_checkout_tax_amount_total">
                                     {`INR ${amount.tax}`}
@@ -189,7 +190,7 @@ export default function Cart(props: any) {
                                     
                             </div>
                         </Col>
-                    </Row>): (<div className="primary_cart_details_empty">Your Cart is empty </div>)}
+                    </Row>): (<Fragment><div className="primary_cart_details_empty">Your Cart is empty. &nbsp;&nbsp;</div> <div style={{textAlign:"center"}}><Button width = "30rem" buttonText="Click here to Explore Products" handleOnClick={(e)=>{dispatch(push(`/`));}}/></div> </Fragment>)}
                 </div>
 
                 {/* Footer */}

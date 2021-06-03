@@ -1,4 +1,5 @@
-import React, { Component, useEffect,useState } from 'react'
+import React, { Component, useEffect,useState, Fragment } from 'react'
+import {push} from "connected-react-router"
 import "./Favorite.scss"
 
 import Footer from "../../components/Footer"
@@ -71,7 +72,7 @@ export default function Favorite(props: any) {
                                 {populateFavoriteItems()}
                             </div>
                         </Col>
-                    </Row>): (<div className="primary_favorite_details_empty">Your favorite list is empty</div>)}
+                    </Row>): ((<Fragment><div className="primary_favorite_details_empty">Your Cart is empty. &nbsp;&nbsp;</div> <div style={{textAlign:"center"}}><Button width = "30rem" buttonText="Click here to Explore Products" handleOnClick={(e)=>{dispatch(push(`/`));}}/></div> </Fragment>))}
                 </div>
 
                 {/* Footer */}
