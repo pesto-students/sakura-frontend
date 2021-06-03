@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import AppLogo from "../../components/AppLogo";
 import Cart from "../../components/Cart";
+import { Power } from "react-bootstrap-icons";
 import Favorite from "../../components/Favorite";
 import SearchBar, { SearchResults } from "../../components/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
@@ -56,43 +57,47 @@ export const Header: React.FC = () => {
 
   return (
     <div className="header_container">
-        <div
-          className="header_container_logo"
-          onClick={() => {
-            dispatch(push(`/`));
+      <div
+        className="header_container_logo"
+        onClick={() => {
+          dispatch(push(`/`));
+        }}
+      >
+        <AppLogo />
+      </div>
+      <div className="header-content">
+        <SearchBar
+          searchCbk={(str: string) => {
+            dispatch(getSearchQuery({ matchString: str }));
           }}
-        >
-          <AppLogo />
-        </div>
-        <div className="header-content">
-          <SearchBar
-            searchCbk={(str: string) => {
-              dispatch(getSearchQuery({ matchString: str }));
-            }}
-            resultClickFn={() => {}}
-            searchResults={formatSearchResults()}
-          ></SearchBar>
-        </div>
+          resultClickFn={() => {}}
+          searchResults={formatSearchResults()}
+        ></SearchBar>
+      </div>
 
-        <div id="header-favorite" className="header_container_favorite">
-          <Favorite
-            favoriteItemCount={favoriteCount}
-            favoriteCbk={() => {
-              dispatch(push(`/favorite`));
-            }}
-          />
-        </div>
+      <div id="header-favorite" className="header_container_favorite">
+        <Favorite
+          favoriteItemCount={favoriteCount}
+          favoriteCbk={() => {
+            dispatch(push(`/favorite`));
+          }}
+        />
+      </div>
 
-        <div className="header_container_cart">
-          {/* Write callback to route to next page upon change */}
-          <Cart
-            cartItemCount={cartCount}
-            cartCbk={() => {
-              dispatch(push(`/cart`));
-            }}
-          />
-        </div>
-        
+      <div className="header_container_cart">
+        {/* Write callback to route to next page upon change */}
+        <Cart
+          cartItemCount={cartCount}
+          cartCbk={() => {
+            dispatch(push(`/cart`));
+          }}
+        />
+      </div>
+      <div className="header_container_cart">
+        <span>
+          <Power />
+        </span>
+      </div>
     </div>
   );
 };
