@@ -15,7 +15,7 @@ export default class Dropdown extends Component<DropdownProps, DropdownState> {
       
     handleSelect = (eventKey: any, event: any) =>{
         this.setState({ currValue: eventKey});
-        this.props.handleChange(this.state.currValue)
+        this.props.handleChange(eventKey)
     }
     render() {
         const { possibleValues=[], isColor=false } = this.props;
@@ -28,11 +28,13 @@ export default class Dropdown extends Component<DropdownProps, DropdownState> {
             variant="Default" 
             bsPrefix="primary_Dropdown"
             onSelect={this.handleSelect}>
-            {possibleValues.map((item, idx)=>{
-               return <BootstrapDropdown.Item key={idx} eventKey={item} bsPrefix="primary_Dropdown_item">
-                   {isColor? <Color colorName={item}/>: item }
-               </BootstrapDropdown.Item>
-            })}
+                <div className="primary_Dropdown_item_container">
+                    {possibleValues.map((item, idx)=>{
+                    return <BootstrapDropdown.Item key={idx} eventKey={item} bsPrefix="primary_Dropdown_item">
+                        {isColor? <Color colorName={item}/>: item }
+                    </BootstrapDropdown.Item>
+                    })}
+                </div>
             </DropdownButton>
         )
     }

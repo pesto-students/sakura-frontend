@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
-import { getProductDetailReducer } from "./product.slice";
+import { getProductDetailReducer, getProductOptionsReducer } from "./product.slice";
 import { addItemToCart } from "../cart/cart.slice";
 import { addItemToFavorite } from "../favorite/favorite.slice";
 import { createMatchSelector } from "connected-react-router";
-
+import { getProductDetail, getProductOption } from "./product.service";
 import "./product.scss";
 
 import Footer from "../../components/Footer";
@@ -19,12 +19,12 @@ import AddTocart from "../../components/AddToCart";
 import AddToFavorite from "../../components/AddToFavorite";
 import Color from "../../components/Color";
 import Spinner from "../../components/Spinner";
-import { getProductDetail } from "./product.service";
 
 export default function Product(props: any) {
   // get state value
   const dispatch = useAppDispatch();
   const productDetails = useAppSelector((state) => state.product.productDetail);
+  const productOptions = useAppSelector((state) => state.product.productOptions);
   const matchSelector = createMatchSelector("/product/:productId");
   const match: any = useAppSelector((state) => matchSelector(state));
 
@@ -42,6 +42,33 @@ export default function Product(props: any) {
     productImage: "",
   });
 
+  const [colors, setColors] = useState([])
+  const [sizes, setSizes] = useState([])
+  useEffect(() => {
+    setColors(productOptions.colors)
+    setSizes(productOptions.sizes)
+  }, [productOptions])
+
+  const updateColorOption  = (value: any) =>{
+    let colors = productOptions.sizeMap[value].map((item: any)=>item.color)
+    setProductState((oldvalue) => ({
+      ...oldvalue,
+      color: colors[0],
+    }))
+    setColors(colors)
+
+  }
+
+  const updateSizeOption  = (value: any) =>{
+    let sizes = productOptions.colorMap[value].map((item: any)=>item.size)
+    setProductState((oldvalue) => ({
+      ...oldvalue,
+      size: sizes[0],
+    }))
+    setSizes(sizes)
+
+  }
+
   useEffect(() => {
     setProductState({
       brandName: productDetails?.productClass?.brandName,
@@ -57,10 +84,10 @@ export default function Product(props: any) {
       productImage: productDetails?.productAssets?.publicAsset?.uri,
     });
   }, [productDetails]);
-
   // dispatch action
   useEffect(() => {
     dispatch(getProductDetailReducer({ productId: match.params.productId }));
+    dispatch(getProductOptionsReducer({productId: match.params.productId}))
   }, []);
 
   // get image data from productDetails
@@ -82,13 +109,14 @@ export default function Product(props: any) {
   };
 
   const handleAddToCartClick = (data: any) => {
+    console.log(data)
     dispatch(addItemToCart(data));
-    console.log("handleAddToCartClick");
   };
 
   const handleAddToFavoriteClick = (data: any) => {
     dispatch(addItemToFavorite(data));
   };
+
 
   const renderRating = (rating: number) => {
     return [1, 1, 1, 1, 1].map((item, index) => {
@@ -112,7 +140,7 @@ export default function Product(props: any) {
       <Header />
 
       {/* product details */}
-      {productDetails && productDetails?.id ? (
+      {(productDetails && productDetails?.id &&productState.size && productState.color) ? (
         <div className="primary_ProductDetails">
           <Row>
             <Col sm={5}>
@@ -166,11 +194,15 @@ export default function Product(props: any) {
                     </div>
                     <div style={{ display: "inline-block" }}>
                       <Dropdown
-                        handleChange={(value) =>
-                          console.log("dropdown value" + value)
-                        }
-                        initialValue={productDetail.color}
-                        possibleValues={["black", "brown", "pink"]}
+                        handleChange={(value) =>{
+                          setProductState((oldvalue) => ({
+                            ...oldvalue,
+                            color: value,
+                          }))
+                          updateSizeOption(value)
+                        }}
+                        initialValue={productState.color}
+                        possibleValues={colors}
                         isColor={true}
                       />
                     </div>
@@ -183,12 +215,16 @@ export default function Product(props: any) {
                     </div>
                     <div style={{ display: "inline-block" }}>
                       <Dropdown
-                        handleChange={(value) =>
-                          console.log("dropdown value" + value)
-                        }
-                        initialValue={productDetail.size}
+                        handleChange={(value) =>{
+                          setProductState((oldvalue) => ({
+                            ...oldvalue,
+                            size: value,
+                          }))
+                          updateColorOption(value)
+                        }}
+                        initialValue={productState.size}
                         isColor={false}
-                        possibleValues={["Small", "Medlim", "Large"]}
+                        possibleValues={sizes}
                       />
                     </div>
                   </div>

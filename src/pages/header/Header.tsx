@@ -65,7 +65,7 @@ export const Header: React.FC = () => {
       >
         <AppLogo />
       </div>
-      <div className="header-content">
+      <div className="header-content" style={{margin:"0rem 3rem"}}>
         <SearchBar
           searchCbk={(str: string) => {
             dispatch(getSearchQuery({ matchString: str }));
@@ -93,9 +93,9 @@ export const Header: React.FC = () => {
           }}
         />
       </div>
-      <div className="header_container_cart">
+      <div className="header_container_power">
         <span>
-          <Power />
+          <Power style={{width: "3rem", height:"3rem"}}/>
         </span>
       </div>
     </div>
