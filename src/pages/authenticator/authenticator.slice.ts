@@ -10,7 +10,8 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         userState: {},
-        showLoginModal: false
+        showLoginModal: false,
+        showLogoutModal: false
     } as authState,
     reducers: {
         attemptLogin: () => {
@@ -40,8 +41,14 @@ const authSlice = createSlice({
         showLoginModal: (state) => {
             state.showLoginModal = true;
         },
-        closeLoginModel: (state) => {
+        closeLoginModal: (state) => {
             state.showLoginModal = false;
+        },
+        showLogoutModal: (state) => {
+            state.showLogoutModal = true;
+        },
+        closeLogoutModal: (state) => {
+            state.showLogoutModal = false;
         }
     }
 });
@@ -120,7 +127,8 @@ export const authEpic = combineEpics(attemptSigninEpic, attemptSignOutEpic,
 export const { attemptLogin, successfulLogin, attemptLogout,
     successfulLogout, refreshUserData, refreshUserTokens,
     transferringToCognito, tokenRetrievalError,
-    updateUserData, showLoginModal, closeLoginModel } = authSlice.actions;
+    updateUserData, showLoginModal, closeLoginModal,
+    showLogoutModal, closeLogoutModal } = authSlice.actions;
 export default authSlice.reducer;
 
 
@@ -135,5 +143,6 @@ export type userState = {
 
 export type authState = {
     userState: userState,
-    showLoginModal: boolean
+    showLoginModal: boolean,
+    showLogoutModal: boolean
 }

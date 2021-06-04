@@ -1,4 +1,4 @@
-export const API_URL = process.env["REACT_APP_API_URL"];
+import { API_URL } from "./env";
 
 /** Home page URIs */
 export const getSearchResults = () => `${API_URL}/category`;

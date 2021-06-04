@@ -4,8 +4,10 @@ import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
 import {
   successfulLogin,
   successfulLogout,
-  closeLoginModel,
+  closeLoginModal,
   attemptLogin,
+  closeLogoutModal,
+  attemptLogout,
 } from "./authenticator.slice";
 import { Button, Modal } from "react-bootstrap";
 
@@ -28,6 +30,7 @@ export const Authenticator: React.FC = () => {
   return (
     <div>
       <LoginModal />
+      <LogoutModal />
     </div>
   );
 };
@@ -37,23 +40,54 @@ export const LoginModal: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Modal show={modalState} onHide={() => dispatch(closeLoginModel())}>
+    <Modal show={modalState} onHide={() => dispatch(closeLoginModal())}>
       <Modal.Header>
         <Modal.Title>Sign In</Modal.Title>
       </Modal.Header>
       <Modal.Body>Do you want to Sign In ?</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => dispatch(closeLoginModel())}>
+        <Button variant="secondary" onClick={() => dispatch(closeLoginModal())}>
           Close
         </Button>
         <Button
           variant="primary"
           onClick={() => {
-            dispatch(closeLoginModel());
+            dispatch(closeLoginModal());
             dispatch(attemptLogin());
           }}
         >
-          SignIn
+          Sign In
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+export const LogoutModal: React.FC<{}> = () => {
+  const modalState = useAppSelector((state) => state.auth.showLogoutModal);
+  const dispatch = useAppDispatch();
+
+  return (
+    <Modal show={modalState} onHide={() => dispatch(closeLogoutModal())}>
+      <Modal.Header>
+        <Modal.Title>Sign Out</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Do you want to Sign Out ?</Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          onClick={() => dispatch(closeLogoutModal())}
+        >
+          Close
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            dispatch(closeLogoutModal());
+            dispatch(attemptLogout());
+          }}
+        >
+          Sign Out
         </Button>
       </Modal.Footer>
     </Modal>

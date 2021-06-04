@@ -11,6 +11,11 @@ import { getItemFromFavorite } from "../favorite/favorite.slice";
 import { push } from "connected-react-router";
 import "./header.scss";
 import { getSearchQuery } from "./header-slice";
+import {
+  showLoginModal,
+  showLogoutModal,
+} from "../authenticator/authenticator.slice";
+import classNames from "classnames";
 
 export const Header: React.FC = () => {
   const [cartCount, updateCartCount] = useState(0);
@@ -19,6 +24,9 @@ export const Header: React.FC = () => {
   const favoriteItems = useAppSelector((state) => state.favorite.favoriteItems);
   const fetchedSearchResults = useAppSelector(
     (state) => state.header.searchResults
+  );
+  const isUserLoggedIn = useAppSelector(
+    (state) => state.auth.userState.isLoggedIn
   );
 
   const dispatch = useAppDispatch();
@@ -65,7 +73,7 @@ export const Header: React.FC = () => {
       >
         <AppLogo />
       </div>
-      <div className="header-content" style={{margin:"0rem 3rem"}}>
+      <div className="header-content" style={{ margin: "0rem 3rem" }}>
         <SearchBar
           searchCbk={(str: string) => {
             dispatch(getSearchQuery({ matchString: str }));
@@ -93,9 +101,22 @@ export const Header: React.FC = () => {
           }}
         />
       </div>
-      <div className="header_container_power">
+      <div
+        className="header_container_power"
+        onClick={() => {
+          isUserLoggedIn
+            ? dispatch(showLogoutModal())
+            : dispatch(showLoginModal());
+        }}
+      >
         <span>
-          <Power style={{width: "3rem", height:"3rem"}}/>
+          <Power
+            className={classNames({ "logged-in": isUserLoggedIn })}
+            style={{
+              width: "3rem",
+              height: "3rem",
+            }}
+          />
         </span>
       </div>
     </div>

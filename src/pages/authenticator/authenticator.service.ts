@@ -1,14 +1,15 @@
 import Amplify, { Auth, Hub } from "aws-amplify";
 import { useHistory, useLocation } from "react-router";
+import { COGNITO_DOMAIN, COGNITO_REGION, SIGNIN_REDIRECT, SIGNOUT_REDIRECT, USER_POOL_ID, USER_POOL_WEB_CLIENT_ID } from "../../shared/env";
 
 
 Amplify.configure({
     Auth: {
-        region: process.env["REACT_APP_COGNITO_REGION"],
-        userPoolId: process.env["REACT_APP_USER_POOL_ID"],
-        userPoolWebClientId: process.env["REACT_APP_USER_POOL_WEB_CLIENT_ID"],
+        region: COGNITO_REGION,
+        userPoolId: USER_POOL_ID,
+        userPoolWebClientId: USER_POOL_WEB_CLIENT_ID,
         oauth: {
-            domain: process.env["REACT_APP_COGNITO_DOMAIN"],
+            domain: COGNITO_DOMAIN,
             scope: [
                 "phone",
                 "email",
@@ -16,8 +17,8 @@ Amplify.configure({
                 "openid",
                 "aws.cognito.signin.user.admin",
             ],
-            redirectSignIn: process.env["REACT_APP_SIGNIN_REDIRECT"],
-            redirectSignOut: process.env["REACT_APP_SIGNOUT_REDIRECT"],
+            redirectSignIn: SIGNIN_REDIRECT,
+            redirectSignOut: SIGNOUT_REDIRECT,
             responseType: "code", // or 'token', note that REFRESH token will only be generated when the responseType is code
         },
     },
