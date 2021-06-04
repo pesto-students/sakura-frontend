@@ -24,9 +24,6 @@ const authConfigObj = {
 }
 Amplify.configure(authConfigObj);
 
-console.log(authConfigObj);
-
-
 export async function getAuthenticatedUserAttributes() {
     try {
         const { attributes } = await Auth.currentAuthenticatedUser();
