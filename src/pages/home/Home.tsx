@@ -91,11 +91,6 @@ export const Home = (props: any) => {
   return (
     <div>
       <Row>
-        <Col>
-          <Header />
-        </Col>
-      </Row>
-      <Row>
         {/* <Col md={0}></Col> */}
         <Col>
           <div className="home-carousal">

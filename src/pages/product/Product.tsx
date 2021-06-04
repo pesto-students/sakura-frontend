@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../appStore/hooks";
-import { getProductDetailReducer, getProductOptionsReducer } from "./product.slice";
+import {
+  getProductDetailReducer,
+  getProductOptionsReducer,
+} from "./product.slice";
 import { addItemToCart } from "../cart/cart.slice";
 import { addItemToFavorite } from "../favorite/favorite.slice";
 import { createMatchSelector } from "connected-react-router";
@@ -24,7 +27,9 @@ export default function Product(props: any) {
   // get state value
   const dispatch = useAppDispatch();
   const productDetails = useAppSelector((state) => state.product.productDetail);
-  const productOptions = useAppSelector((state) => state.product.productOptions);
+  const productOptions = useAppSelector(
+    (state) => state.product.productOptions
+  );
   const matchSelector = createMatchSelector("/product/:productId");
   const match: any = useAppSelector((state) => matchSelector(state));
 
@@ -42,32 +47,30 @@ export default function Product(props: any) {
     productImage: "",
   });
 
-  const [colors, setColors] = useState([])
-  const [sizes, setSizes] = useState([])
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
   useEffect(() => {
-    setColors(productOptions.colors)
-    setSizes(productOptions.sizes)
-  }, [productOptions])
+    setColors(productOptions.colors);
+    setSizes(productOptions.sizes);
+  }, [productOptions]);
 
-  const updateColorOption  = (value: any) =>{
-    let colors = productOptions.sizeMap[value].map((item: any)=>item.color)
+  const updateColorOption = (value: any) => {
+    let colors = productOptions.sizeMap[value].map((item: any) => item.color);
     setProductState((oldvalue) => ({
       ...oldvalue,
       color: colors[0],
-    }))
-    setColors(colors)
+    }));
+    setColors(colors);
+  };
 
-  }
-
-  const updateSizeOption  = (value: any) =>{
-    let sizes = productOptions.colorMap[value].map((item: any)=>item.size)
+  const updateSizeOption = (value: any) => {
+    let sizes = productOptions.colorMap[value].map((item: any) => item.size);
     setProductState((oldvalue) => ({
       ...oldvalue,
       size: sizes[0],
-    }))
-    setSizes(sizes)
-
-  }
+    }));
+    setSizes(sizes);
+  };
 
   useEffect(() => {
     setProductState({
@@ -87,7 +90,7 @@ export default function Product(props: any) {
   // dispatch action
   useEffect(() => {
     dispatch(getProductDetailReducer({ productId: match.params.productId }));
-    dispatch(getProductOptionsReducer({productId: match.params.productId}))
+    dispatch(getProductOptionsReducer({ productId: match.params.productId }));
   }, []);
 
   // get image data from productDetails
@@ -109,14 +112,13 @@ export default function Product(props: any) {
   };
 
   const handleAddToCartClick = (data: any) => {
-    console.log(data)
+    console.log(data);
     dispatch(addItemToCart(data));
   };
 
   const handleAddToFavoriteClick = (data: any) => {
     dispatch(addItemToFavorite(data));
   };
-
 
   const renderRating = (rating: number) => {
     return [1, 1, 1, 1, 1].map((item, index) => {
@@ -137,10 +139,11 @@ export default function Product(props: any) {
   return (
     <Fragment>
       {/* header */}
-      <Header />
-
       {/* product details */}
-      {(productDetails && productDetails?.id &&productState.size && productState.color) ? (
+      {productDetails &&
+      productDetails?.id &&
+      productState.size &&
+      productState.color ? (
         <div className="primary_ProductDetails">
           <Row>
             <Col sm={5}>
@@ -194,12 +197,12 @@ export default function Product(props: any) {
                     </div>
                     <div style={{ display: "inline-block" }}>
                       <Dropdown
-                        handleChange={(value) =>{
+                        handleChange={(value) => {
                           setProductState((oldvalue) => ({
                             ...oldvalue,
                             color: value,
-                          }))
-                          updateSizeOption(value)
+                          }));
+                          updateSizeOption(value);
                         }}
                         initialValue={productState.color}
                         possibleValues={colors}
@@ -215,12 +218,12 @@ export default function Product(props: any) {
                     </div>
                     <div style={{ display: "inline-block" }}>
                       <Dropdown
-                        handleChange={(value) =>{
+                        handleChange={(value) => {
                           setProductState((oldvalue) => ({
                             ...oldvalue,
                             size: value,
-                          }))
-                          updateColorOption(value)
+                          }));
+                          updateColorOption(value);
                         }}
                         initialValue={productState.size}
                         isColor={false}

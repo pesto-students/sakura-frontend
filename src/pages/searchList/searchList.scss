@@ -1,0 +1,10 @@
+.productDisplay {
+  display: flex;
+  direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  > * {
+    margin: 1rem;
+  }
+}

@@ -57,7 +57,7 @@ $result-entries-height: 1.7em;
 
 .search-focused {
   max-height: $result-entries-height * 5 + 0.25em;
-  overflow-y: hidden;
+  overflow-y: scroll;
   overflow-x: hidden;
   border: 1px solid $secondary-color;
   transition: max-height 0.5s ease;

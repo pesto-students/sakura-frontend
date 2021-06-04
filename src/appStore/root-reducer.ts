@@ -14,12 +14,14 @@ import cart from "../pages/cart/cart.slice"
 import header, { headerEpic } from '../pages/header/header-slice';
 import favorite from "../pages/favorite/favorite.slice"
 import auth, { authEpic } from "../pages/authenticator/authenticator.slice";
+import searchList, { searchListEpic } from '../pages/searchList/searchList.slice';
 
 export const rootEpic = combineEpics(
   homeEpic,
   productEpic,
   headerEpic,
-  authEpic
+  authEpic,
+  searchListEpic
 );
 
 const createRootReducer = (history: any) => combineReducers({
@@ -30,7 +32,8 @@ const createRootReducer = (history: any) => combineReducers({
   cart,
   header,
   favorite,
-  auth
+  auth,
+  searchList
 });
 
 export default createRootReducer;

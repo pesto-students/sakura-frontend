@@ -56,6 +56,7 @@ export const Header: React.FC = () => {
             categoryId: res.id,
             categoryName: res.name,
             subCategoryId: subCategory.id,
+            subCategoryName: subCategory.name,
           },
         });
       });
@@ -78,7 +79,9 @@ export const Header: React.FC = () => {
           searchCbk={(str: string) => {
             dispatch(getSearchQuery({ matchString: str }));
           }}
-          resultClickFn={() => {}}
+          resultClickFn={(meta) => {
+            dispatch(push(`/search/${meta.subCategoryId}`));
+          }}
           searchResults={formatSearchResults()}
         ></SearchBar>
       </div>
