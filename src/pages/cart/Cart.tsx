@@ -17,6 +17,10 @@ import {
   removeItemToCart,
   emptyCart,
 } from "../cart/cart.slice";
+import {
+  showLoginModal,
+  showLogoutModal,
+} from "../authenticator/authenticator.slice";
 import { addItemToFavorite } from "../favorite/favorite.slice";
 import { Modal, Form } from "react-bootstrap";
 
@@ -35,6 +39,7 @@ export default function Cart(props: any) {
   const handleOrderPlacedModalShow = () => setShowOrderPlacedModal(true);
 
   const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const userState = useAppSelector((state) => state.auth.userState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -113,7 +118,9 @@ export default function Cart(props: any) {
               <Form.Control
                 type="email"
                 placeholder="Enter email*"
+                value={userState?.userData?.email}
                 required={true}
+                disabled={true}
               />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
@@ -237,7 +244,7 @@ export default function Cart(props: any) {
                     width="100%"
                     buttonText="Checkout"
                     handleOnClick={(e) => {
-                      handleModalShow();
+                      userState.isLoggedIn?handleModalShow():dispatch(showLoginModal())
                     }}
                   />
                 </div>
