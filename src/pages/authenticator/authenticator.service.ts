@@ -2,8 +2,7 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import { useHistory, useLocation } from "react-router";
 import { COGNITO_DOMAIN, COGNITO_REGION, SIGNIN_REDIRECT, SIGNOUT_REDIRECT, USER_POOL_ID, USER_POOL_WEB_CLIENT_ID } from "../../shared/env";
 
-
-Amplify.configure({
+const authConfigObj = {
     Auth: {
         region: COGNITO_REGION,
         userPoolId: USER_POOL_ID,
@@ -22,7 +21,10 @@ Amplify.configure({
             responseType: "code", // or 'token', note that REFRESH token will only be generated when the responseType is code
         },
     },
-});
+}
+Amplify.configure(authConfigObj);
+
+console.log(authConfigObj);
 
 
 export async function getAuthenticatedUserAttributes() {
