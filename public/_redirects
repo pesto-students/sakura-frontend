@@ -1,4 +1,6 @@
 # Redirect api request to API server
 /oauth2/* https://sakura.auth.ap-south-1.amazoncognito.com/oauth2/:splat 200
+/dev/* https://jm3y0gbmwf.execute-api.ap-south-1.amazonaws.com/dev/:splat 200
+/testing/* https://0htmwm914d.execute-api.ap-south-1.amazonaws.com/testing/:splat 200
 /api/* http://15.207.71.175:8080/api/:splat 200
 /* /index.html
